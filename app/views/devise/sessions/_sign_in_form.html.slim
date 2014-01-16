@@ -1,0 +1,7 @@
+= simple_form_for('user', url: user_session_path) do |f|
+  = f.input :email, autofocus: true, label: t('.email')
+  = f.input :password, as: :password, label: t('.password')
+  = f.input :remember_me, as: :boolean, label: false,   inline_label: t('.rememberme')
+
+  hr
+  = f.submit t('.sign_in'), class: 'btn btn-primary submit'

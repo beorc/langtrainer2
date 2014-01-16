@@ -1,0 +1,12 @@
+.container
+  h2 = t("devise.shared.forgot_password")
+
+  = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:method => :post}) do |f|
+    = devise_error_messages!
+
+    fieldset
+      = f.input :email
+
+    .actions
+      = f.submit t("devise.passwords.send_reset_password_instructions"), :class => 'btn btn-primary'
+

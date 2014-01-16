@@ -1,0 +1,18 @@
+login: &login
+  adapter: mysql2
+  host: localhost
+  username: root
+  password: root
+  pool: 500
+
+development: &development
+  database: langtrainer2_dev
+  <<: *login
+
+test: &test
+  database: langtrainer2_test
+  <<: *login
+
+production: &production
+  database: langtrainer2_prod
+  <<: *login

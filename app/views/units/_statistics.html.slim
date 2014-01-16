@@ -1,0 +1,21 @@
+- if user_signed_in?
+  .statistics
+    table.table
+      caption = UnitStatistic.model_name.human.capitalize
+      thead
+        tr
+          th = UnitStatistic.human_attribute_name(:steps_passed)
+          th = UnitStatistic.human_attribute_name(:words_helped)
+          th = UnitStatistic.human_attribute_name(:steps_helped)
+          th = UnitStatistic.human_attribute_name(:right_answers)
+          th = UnitStatistic.human_attribute_name(:wrong_answers)
+      tbody
+        tr
+          td = statistics.steps_passed
+          td = statistics.words_helped
+          td = statistics.steps_helped
+          td = statistics.right_answers
+          td = statistics.wrong_answers
+- else
+  .disclaimer.muted.text-center = t('.sign_in_to_see_statistics')
+

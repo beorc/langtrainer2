@@ -1,0 +1,7 @@
+li.choose-another-language.dropdown
+  .images-preload
+    - I18n.available_locales.each do |locale|
+      = image_tag "flags/#{locale}.ico"
+  ul.nav.language-selector
+    - I18n.available_locales.each do |locale|
+      li = link_to '', change_language_path(locale, 'globalize_locale'), class: "language-flag #{locale} #{locale_class(locale)}"

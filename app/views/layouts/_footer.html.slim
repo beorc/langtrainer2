@@ -1,0 +1,40 @@
+.footer
+  .text-center.wraptotop
+    = link_to '#', class: 'totop' do
+      i.icon-chevron-up.icon-white
+  .container
+    .row-fluid
+      .span4
+        h4.block-title
+          span = t(:about)
+        .footer-block
+          - if Page.find_by(slug: 'about').present?
+            == Page.find_by(slug: 'about').short
+            = link_to t(:read_more), page_path(@about_page), class: 'read-more'
+        /.footer-logo = image_tag 'logo-light.png'
+      .span4
+        h4.block-title
+          span = LatestContent.model_name.human(count: 2).capitalize
+        ul.unstyled.latest-content
+          li
+            = link_to 'Метод Пимслера: третий модуль', '#'
+          li
+            = link_to 'Метод Пимслера: второй модуль', '#'
+          li
+            = link_to 'Метод Пимслера: первый модуль', '#'
+      .span4
+        h4.block-title
+          span = t('.feedback')
+        = render 'feedbacks/form'
+.footerbottom
+  .container
+    .row-fluid
+      .span4.smallspacetop
+        p
+          span.copyright &copy; #{Date.today.year}, HttpLab
+      .span8.smallspacetop
+        .pull-right
+          ul.footermenu
+            li = link_to t(:home)
+            li = link_to LatestContent.model_name.human(count: 2).capitalize
+

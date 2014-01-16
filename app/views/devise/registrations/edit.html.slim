@@ -1,0 +1,27 @@
+.row-fluid
+  .span7
+    h2 = title t('.title')
+    = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+
+      = f.input :email, autofocus: true
+      h3 = t('.change_password')
+      = f.input :password, as: :password, label: t('.password'), hint: t('.hints.password')
+      = f.input :password_confirmation, as: :password, label: t('.password_confirmation')
+
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        div = t('.pending_email_confirmation', email: resource.unconfirmed_email)
+          Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+
+      = f.input :current_password, as: :password, label: t('.current_password'), hint: t('.hints.current_password')
+
+      hr
+      = f.submit t('.update'), class: 'btn btn-primary submit'
+
+  .span5
+    h2 = t('.cancel_my_account')
+
+    p
+      = t('.unhappy')
+      '  
+      = link_to t('.cancel_my_account'), registration_path(resource_name), :data => { :confirm => t('.confirm') }, :method => :delete
+

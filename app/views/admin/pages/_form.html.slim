@@ -1,0 +1,22 @@
+- content_for :language_selector do
+  = render_language_selector
+
+= simple_form_for [:admin, @page], wysihat: true do |f|
+  fieldset
+    .formSep
+      = globalized { f.input :title, input_html: { class: 'span6' }, hint: globalized_hint(@page, :title) }
+      = f.input :slug, required: false, hint: t('.slug_hint'), input_html: { class: 'span6' }
+    .formSep
+      = render_metatags_inputs f
+    .formSep
+      = f.input :title_image, as: :file
+      - if @page.title_image.present?
+        div
+          = image_tag @page.title_image.thumb_span2.url
+    = globalized { f.input :short, as: :text, input_html: { class: 'redactor', rows: 7, style: 'width: 100%;' }, hint: globalized_hint(@page, :short) }
+    = globalized { f.input :content, as: :text, input_html: { class: 'redactor', rows: 10, style: 'width: 100%;' }, hint: globalized_hint(@page, :content) }
+  .form-actions
+    = f.submit class: 'btn btn-gebo'
+    '&nbsp;
+    = link_to t(:cancel), :back, class: 'btn'
+

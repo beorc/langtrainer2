@@ -1,0 +1,13 @@
+doctype 5
+html
+  head
+    = render 'layouts/head'
+  body.boxed
+    - if not has_native_language?
+      = render 'layouts/language_dialog'
+    #page.body
+      = render 'layouts/header'
+      .container.content class="#{controller_name.dasherize} #{action_name.dasherize}"
+        = render 'layouts/messages'
+        = yield
+      = render 'layouts/footer'

@@ -1,0 +1,23 @@
+- title Step.model_name.human(count: 2).capitalize
+
+h1.heading = Step.model_name.human(count: 2).capitalize
+
+.btn-group.sepH_b
+  = link_to new_admin_step_path, class: 'btn' do
+    i.icon-plus
+    '&nbsp
+    = t('helpers.submit.step.create')
+
+- if @steps.empty?
+  .alert = t('.not_found')
+- else
+  table.table.table-bordered.table-striped.table-condensed
+    thead
+      tr
+        th = @steps.human_attribute_name(:template)
+        th = @steps.human_attribute_name(:ru)
+        th = @steps.human_attribute_name(:en)
+        th = @steps.human_attribute_name(:es)
+        th.actions = t(:actions)
+    tbody
+      = render @steps

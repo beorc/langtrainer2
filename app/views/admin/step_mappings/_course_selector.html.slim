@@ -1,0 +1,7 @@
+ul.nav.nav-pills.nav-stacked
+  - Course.all.each do |course|
+    = active_link_to globalized { course.title },
+                     admin_step_mappings_path(course: course),
+                     wrap_tag: :li,
+                     active: /course=#{course.slug}/
+

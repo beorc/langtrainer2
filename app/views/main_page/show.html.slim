@@ -1,0 +1,35 @@
+.row-fluid
+  .span3
+    h2 = t(:about)
+    - if @about_page.present?
+      == @about_page.short
+      = link_to t(:read_more), page_path(@about_page), class: 'read-more'
+
+    h2 = t('.statistics')
+    .statistics
+      dl.dl-horizontal
+        dt 3
+        dd модуля
+        dt 200
+        dd шагов
+
+    h2 = t('.partners')
+    h2 = t('.advert')
+
+  .span6
+    - if Course.any?
+      h2 = Course.model_name.human(count: 2).capitalize
+      = render partial: 'course', collection: Course.published_only
+
+    - if LatestContent.any?
+      h2 = LatestContent.model_name.human(count: LatestContent.count).capitalize
+      = render partial: 'latest_content', collection: LatestContent.by_date.to_a.select(&:published?)
+
+  .span3
+    h2 = UsefulLink.model_name.human(count: 2).capitalize
+    ul.unstyled.external-links
+      - UsefulLink.all.each do |useful_link|
+        li
+          = link_to useful_link.title, useful_link.url, target: '_blank'
+          .external-link-source = useful_link.source
+

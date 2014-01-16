@@ -1,0 +1,37 @@
+- content_for :language_selector do
+  = render_language_selector
+
+.admin-page
+  h1.heading
+    = globalized { title(@page.title) }
+    ' (#{@page.slug})
+
+  p = link_to t('admin.open_link'), @page, class: 'btn btn-large', target: '_blank'
+
+  - if @page.keywords.present?
+    .keywords
+      = Page.human_attribute_name(:keywords)
+      ' :
+      = @page.keywords
+
+      / Полоску рисуем только если под ключевыми словами есть контент, или картинка.
+      - if @page.content.present? || @page.title_image.present?
+        hr
+
+  .content.clearfix
+    - if @page.title_image.present?
+      p = image_tag @page.title_image.url
+    .well == globalized { @page.short }
+    .well == globalized { @page.content }
+  .form-actions
+    = link_to edit_admin_page_path, class: 'btn' do
+      i.icon.icon-pencil
+      ' &nbsp;
+      = t("helpers.submit.page.update")
+    ' &nbsp;
+    = link_to admin_page_path, class: 'btn',
+              method: :delete, data: { confirm: t(:delete_confirm, title: @page.title) } do
+      i.icon-white.icon-trash
+      ' &nbsp;
+      = t('helpers.submit.page.destroy')
+

@@ -1,0 +1,27 @@
+- content_for :language_selector do
+  = render_language_selector
+
+- title Unit.model_name.human(count: 2).capitalize
+
+h1.heading = Unit.model_name.human(count: 2).capitalize
+
+.btn-group.sepH_b
+  = link_to new_admin_unit_path, class: 'btn' do
+    i.icon-plus
+    '&nbsp
+    = t('helpers.submit.unit.create')
+
+- if @units.empty?
+  .alert = t('.not_found')
+- else
+  table.table.table-bordered.table-striped.table-condensed
+    thead
+      tr
+        th = @units.human_attribute_name(:title)
+        th = @units.human_attribute_name(:slug)
+        th = @units.human_attribute_name(:random_steps_order)
+        th = @units.human_attribute_name(:free)
+        th = @units.human_attribute_name(:course_id)
+        th.actions = t(:actions)
+    tbody
+      = render @units

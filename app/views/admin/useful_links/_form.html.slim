@@ -1,0 +1,14 @@
+- content_for :language_selector do
+  = render_language_selector
+
+= simple_form_for [:admin, @useful_link] do |f|
+  fieldset
+    = globalized { f.input :title, input_html: { class: 'span6' }, hint: globalized_hint(@useful_link, :title) }
+    = f.input :url, input_html: { class: 'span6' }
+    = f.input :source
+    = globalized { f.input :description }
+
+  .form-actions
+    = f.submit class: 'btn btn-gebo'
+    '&nbsp;
+    = link_to t(:cancel), :back, class: 'btn'

@@ -1,0 +1,85 @@
+.units.show {
+  .workspace {
+    .answer {
+      width: 400px;
+      min-height: 100px;
+      &.container { margin-bottom: 30px }
+
+      #answer {
+        resize: none;
+        font-size: 20px;
+        &.right { color: green }
+        &.wrong { color: red }
+        //&.selected { @include box-shadow (rgba(blue, .2) 0 0 9px); }
+        //&.wrong.selected {@include box-shadow (rgba(#B94A48, .2) 0 0 9px);}
+
+        margin: 5px 0;
+        padding: 5px;
+        padding-bottom: 30px;
+        @include border-radius(3px);
+        border: 1px solid #dedede;
+        @include box-shadow (rgba(black, .2) 0 0 1px);
+        @include transition-property(box-shadow);
+        @include transition-duration(.5s);
+      }
+    }
+
+    .actions {
+      margin-top: -27px;
+      li {
+        a {
+          text-decoration: none;
+          opacity: 0.7;
+          padding: 3px;
+
+          &:hover {
+            opacity: 0.9;
+          }
+
+          &.disabled {
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+    .template {
+      font-size: 20px;
+      font-weight: 200;
+      width: 400px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    ul.hints {
+      list-style-type: none;
+      li { margin-top: 20px; }
+    }
+  }
+
+  .hints td.column {
+    width: 30%;
+  }
+
+  .table th,
+  .table td {
+    vertical-align: middle;
+    text-align: center;
+
+    .block {
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+
+  .hints { margin-top: 30px }
+  .hints td {
+    p { margin: 0 }
+  }
+
+  .hints .container.middle { width: 70% }
+  .hints .container.big { width: 90% }
+
+  .language_characters {
+    width: 370px;
+  }
+}
+

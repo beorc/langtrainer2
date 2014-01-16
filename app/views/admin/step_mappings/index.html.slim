@@ -1,0 +1,30 @@
+- content_for :language_selector do
+  = render_language_selector
+
+- title StepMapping.model_name.human(count: 2).capitalize
+
+h1.heading = StepMapping.model_name.human(count: 2).capitalize
+
+= render 'course_selector'
+
+hr
+
+.btn-group.sepH_b
+  = link_to new_admin_step_mapping_path, class: 'btn' do
+    i.icon-plus
+    '&nbsp
+    = t('helpers.submit.step_mapping.create')
+
+- if @step_mappings.empty?
+  .alert = t('.not_found')
+- else
+  table.table.table-bordered.table-striped.table-condensed
+    thead
+      tr
+        th = Step.human_attribute_name(:ru)
+        th = Step.human_attribute_name(:en)
+        th = Step.human_attribute_name(:es)
+        th.actions = t(:actions)
+    tbody
+      = render @step_mappings
+

@@ -1,0 +1,10 @@
+tr
+  td = link_to globalized { useful_link.title }, admin_useful_link_path(useful_link)
+  td = useful_link.source
+  td
+    = link_to edit_admin_useful_link_path(useful_link) do
+      i.icon-pencil
+    '&nbsp;
+    = link_to admin_useful_link_path(useful_link), method: :delete,
+              data: { confirm: t(:delete_confirm, title: UsefulLink.model_name.human ) } do
+      i.icon-trash

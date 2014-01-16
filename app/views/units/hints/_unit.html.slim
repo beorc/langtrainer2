@@ -1,0 +1,10 @@
+- if hint_present?(exercise)
+  .accordion-group
+    .accordion-heading
+      = link_to "#exercise-#{exercise.id}", data: { parent: '#help-accordion' }, class: 'accordion-toggle btn btn-primary' do
+        i.icon-question-sign
+        '&nbsp
+        = title_for(exercise)
+    .accordion-body.collapse id="exercise-#{exercise.id}" class=accordion_body_class(exercise)
+      .accordion-inner
+        = render(partial: hint_partial(exercise), locals: { exercise: exercise })

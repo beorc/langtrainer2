@@ -1,0 +1,13 @@
+tr
+  td = link_to globalized { unit.title }, admin_unit_path(unit)
+  td = unit.slug
+  td = t(unit.random_steps_order)
+  td = t(unit.free)
+  td = globalized { unit.course.title }
+  td
+    = link_to edit_admin_unit_path(unit) do
+      i.icon-pencil
+    '&nbsp;
+    = link_to admin_unit_path(unit), method: :delete,
+              data: { confirm: t(:delete_confirm, title: Unit.model_name.human ) } do
+      i.icon-trash

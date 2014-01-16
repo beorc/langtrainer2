@@ -1,0 +1,19 @@
+- if latest_content.present?
+  .well
+    h2 = LatestContent.model_name.human.capitalize
+
+    p
+      strong = LatestContent.human_attribute_name(:released_at)
+      ' :
+      = l(latest_content.released_at, format: :long)
+
+    p
+      strong = LatestContent.human_attribute_name(:title)
+      ' :
+      = globalized { latest_content.title }
+
+    p
+      strong = LatestContent.human_attribute_name(:description)
+      ' :
+      = globalized { latest_content.description }
+

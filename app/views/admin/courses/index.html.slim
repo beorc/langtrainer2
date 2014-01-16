@@ -1,0 +1,24 @@
+- content_for :language_selector do
+  = render_language_selector
+
+- title Course.model_name.human(count: 2).capitalize
+
+h1.heading = Course.model_name.human(count: 2).capitalize
+
+.btn-group.sepH_b
+  = link_to new_admin_course_path, class: 'btn' do
+    i.icon-plus
+    '&nbsp
+    = t('helpers.submit.course.create')
+
+- if @courses.empty?
+  .alert = t('.not_found')
+- else
+  table.table.table-bordered.table-striped.table-condensed
+    thead
+      tr
+        th = @courses.human_attribute_name(:title)
+        th = @courses.human_attribute_name(:slug)
+        th.actions = t(:actions)
+    tbody
+      = render @courses

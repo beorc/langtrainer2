@@ -1,0 +1,14 @@
+.content-item.course
+  .ci-header
+    h3 = course.title
+  .ci-intro
+    - if course.short.present?
+      = course.short
+      = link_to t(:read_more), '#', class: 'read-more'
+  .course-languages
+    h4 = t('.select_learning_language')
+    ul.inline
+      = render partial: 'content_link', collection: Language.except(native_language),
+                                                    as: :language,
+                                                    locals: { course: course, unit: course.units.published_only.first }
+

@@ -1,0 +1,76 @@
+h1.heading
+  = title StepMapping.model_name.human.capitalize
+
+p
+  strong = Course.model_name.human.capitalize
+  ' :
+  = globalized { @step_mapping.unit.course.title }
+
+p
+  strong = StepMapping.human_attribute_name(:unit_id)
+  ' :
+  = globalized { @step_mapping.unit.title }
+
+.well
+  h2 = Step.model_name.human.capitalize
+
+  - if @step_mapping.step.ru_template?
+    p
+      strong = Step.human_attribute_name(:ru_template)
+      ' :
+      = @step_mapping.step.ru_template
+
+  p
+    strong = Step.human_attribute_name(:ru)
+    ' :
+    = @step_mapping.step.ru
+
+- if @step_mapping.position?
+  p
+    strong = StepMapping.human_attribute_name(:position)
+    ' :
+    = @step_mapping.position
+
+p
+  strong = StepMapping.human_attribute_name(:from_en)
+  ' :
+  = t(@step_mapping.from_en)
+
+p
+  strong = StepMapping.human_attribute_name(:to_en)
+  ' :
+  = t(@step_mapping.to_en)
+
+p
+  strong = StepMapping.human_attribute_name(:from_ru)
+  ' :
+  = t(@step_mapping.from_ru)
+
+p
+  strong = StepMapping.human_attribute_name(:to_ru)
+  ' :
+  = t(@step_mapping.to_ru)
+
+p
+  strong = StepMapping.human_attribute_name(:from_es)
+  ' :
+  = t(@step_mapping.from_es)
+
+p
+  strong = StepMapping.human_attribute_name(:to_es)
+  ' :
+  = t(@step_mapping.to_es)
+
+.form-actions
+  = link_to edit_admin_step_mapping_path(@step_mapping), class: 'btn' do
+    i.icon.icon-pencil
+    ' &nbsp;
+    = t("helpers.submit.step_mapping.edit")
+  ' &nbsp;
+  = link_to admin_step_mapping_path(@step_mapping), class: 'btn btn-danger',
+            method: :delete, confirm: t(:delete_confirm, title: StepMapping.model_name.human) do
+    i.icon-white.icon-trash
+    ' &nbsp;
+    = t("helpers.submit.step_mapping.destroy")
+
+

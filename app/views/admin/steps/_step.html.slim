@@ -1,0 +1,18 @@
+tr
+  td = step.shared_template
+  td = step.ru
+  td = step.en
+  td = step.es
+  td
+    = link_to new_admin_step_mapping_path(course: Course.first, step: step) do
+      i.icon-plus
+    '&nbsp;
+    = link_to admin_step_path(step) do
+      i.icon-eye
+    '&nbsp;
+    = link_to edit_admin_step_path(step) do
+      i.icon-pencil
+    '&nbsp;
+    = link_to admin_step_path(step), method: :delete,
+              data: { confirm: t(:delete_confirm, title: Step.model_name.human ) } do
+      i.icon-trash

@@ -1,0 +1,23 @@
+= render 'course_selector'
+
+= simple_form_for [:admin, @step_mapping] do |f|
+  fieldset
+    .formSep
+      = f.input :unit_id, collection: @course.units, selected: @unit
+      = f.input :step_id, collection: Step.all, label_method: :ru, selected: @step
+    .formSep
+      = f.input :position
+    .formSep
+      = f.input :from_en
+      = f.input :to_en
+    .formSep
+      = f.input :from_ru
+      = f.input :to_ru
+    .formSep
+      = f.input :from_es
+      = f.input :to_es
+
+  .form-actions
+    = f.submit class: 'btn btn-gebo'
+    '&nbsp;
+    = link_to t(:cancel), :back, class: 'btn'

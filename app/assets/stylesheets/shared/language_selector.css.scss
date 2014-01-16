@@ -1,0 +1,23 @@
+.images-preload {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
+ul.nav.language-selector {
+  margin-top: 6px;
+
+  a.language-flag {
+    display: block;
+    width: 22px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: 30px;
+
+    &.ru { background-image: image_url('flags/ru.ico') }
+    &.en { background-image: image_url('flags/en.ico') }
+
+    &.inactive { opacity: 0.4 }
+  }
+}
+

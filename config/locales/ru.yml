@@ -1,0 +1,218 @@
+ru:
+  app_name: Langtrainer
+
+  about: О нас
+  home: Главная
+  read_more: 'Читать дальше...'
+
+  admin:
+    courses:
+      index:
+        not_found: Не создано ни одного курса
+      new:
+        title: Новый курс
+      edit:
+        title: Редактирование курса
+    units:
+      index:
+        not_found: Не создано ни одного занятия
+      new:
+        title: Новое занятие
+      edit:
+        title: Редактирование занятия
+    steps:
+      index:
+        not_found: Не создано ни одного шага
+      new:
+        title: Новый шаг
+      edit:
+        title: Редактирование шага
+    step_mappings:
+      index:
+        not_found: Не создано ни одного шага занятия
+      new:
+        title: Новый шаг занятия
+      edit:
+        title: Редактирование шага занятия
+    useful_links:
+      index:
+        not_found: Не создано ни одной ссылки
+      new:
+        title: Новая ссылка
+      edit:
+        title: Редактирование ссылки
+    latest_content:
+      index:
+        not_found: Не создано ни одного оповещения об обновлении
+      new:
+        title: Новое оповещение об обновлении
+      edit:
+        title: Редактирование оповещения об обновлении
+
+  helpers:
+    submit:
+      course:
+        create: Создать курс
+        edit: Редактировать курс
+        destroy: Удалить курс
+      unit:
+        create: Создать занятие
+        edit: Редактировать занятие
+        destroy: Удалить занятие
+      step:
+        create: Создать шаг
+        edit: Редактировать шаг
+        destroy: Удалить шаг
+      step_mapping:
+        create: Создать шаг занятия
+        edit: Редактировать шаг занятия
+        destroy: Удалить шаг занятия
+      latest_content:
+        create: Создать оповещение об обновлении
+        edit: Редактировать оповещение об обновлении
+        destroy: Удалить оповещение об обновлении
+      useful_link:
+        create: Создать ссылку
+        edit: Редактировать ссылку
+        destroy: Удалить ссылку
+
+  mailer:
+    confirmation_instructions:
+      subject: Подтверждение учетной записи
+    reset_password_instructions:
+      subject: Измение пароля пользователя
+
+  placeholders:
+    feedback:
+      message: Сообщение
+    user:
+      email: e-mail
+
+  layouts:
+    language_dialog:
+      title: Выберите свой родной язык
+    header:
+      your_language: 'Ваш язык:'
+    user_menu:
+      credentials: Профиль пользователя
+    email:
+      signature: "— С уважением, команда %{app_name}"
+    footer:
+      feedback: Обратная связь
+
+  main_page:
+    show:
+      title: Тренажер иностранных языков
+    sign_in_form:
+      invitation: Зарегистрируйтесь на сайте, чтобы сохранить ваш прогресс. Для этого достаточно ввести адрес электронной почты. На него будет отправлено письмо со ссылкой для входа на сайт.
+    course:
+      select_learning_language: Выберите язык для изучения
+    latest_content:
+      select_learning_language: Выберите язык для изучения
+
+  units:
+    show:
+      no_sentences: Занятие не содержит шагов
+      answer_placeholder: 'Введите перевод'
+      next_word: Подсказать следующее слово
+      look: Показать правильный ответ
+      check: Проверить ответ
+      next: Следующий шаг
+    statistics:
+      sign_in_to_see_statistics: Войдите на сайт или зарегистрируйтесь, чтобы вести статистику вашего обучения.
+
+  activerecord:
+    models:
+      course:
+        one: курс
+        few: курсы
+        many: курсы
+        other: курсы
+      unit:
+        one: занятие
+        few: занятия
+        many: занятия
+        other: занятия
+      step:
+        one: шаг
+        few: шаги
+        many: шаги
+        other: шаги
+      step_mapping:
+        one: шаг занятия
+        few: шаги занятия
+        many: шаги занятия
+        other: шаги занятия
+      latest_content:
+        one: последнее обновление
+        few: последние обновления
+        many: последние обновления
+        other: последние обновления
+      useful_link:
+        one: полезная ссылка
+        few: полезные ссылки
+        many: полезные ссылки
+        other: полезные ссылки
+      unit_statistic:
+        one: статистика
+        few: статистика
+        many: статистика
+        other: статистика
+
+    attributes:
+      page:
+        short: Вступление
+      course:
+        title: Название
+        slug: Пермалинк
+        short: Введение
+        description: Описание
+        language: Язык
+        published: Опубликовано
+      unit:
+        title: Название
+        slug: Пермалинк
+        description: Описание
+        random_steps_order: Отображать шаги в случайном порядке
+        free: Бесплатный
+        course_id: Курс
+        published: Опубликовано
+      step:
+        en: Английский
+        en_regexp: Английский - регулярное выражение
+        ru: Русский
+        ru_regexp: Русский - регулярное выражение
+        es: Испанский
+        es_regexp: Испанский - регулярное выражение
+        template: Шаблон
+        shared_template: Общий шаблон
+        ru_template: Русский шаблон
+        en_template: Английский шаблон
+        es_template: Испанский шаблон
+      step_mapping:
+        unit_id: Модуль
+        step_id: Шаг
+        to_en: На английский
+        from_en: С английского
+        to_ru: На русский
+        from_ru: С русского
+        to_es: На испанский
+        from_es: С испанского
+        position: Позиция
+      useful_link:
+        title: Текст ссылки
+        url: Ссылка
+        source: Источник
+        description: Описание
+      latest_content:
+        title: Заголовок
+        released_at: Дата выпуска
+        owner_id: Владелец
+        description: Описание
+      unit_statistic:
+        steps_passed: Шагов пройдено
+        words_helped: Использовано подсказок слов
+        steps_helped: Просмотрено правильных ответов
+        right_answers: Правильных ответов
+        wrong_answers: Ошибочных ответов
+

@@ -1,0 +1,24 @@
+- content_for :language_selector do
+  = render_language_selector
+
+- title UsefulLink.model_name.human(count: 2).capitalize
+
+h1.heading = UsefulLink.model_name.human(count: 2).capitalize
+
+.btn-group.sepH_b
+  = link_to new_admin_useful_link_path, class: 'btn' do
+    i.icon-plus
+    '&nbsp
+    = t('helpers.submit.useful_link.create')
+
+- if @useful_links.empty?
+  .alert = t('.not_found')
+- else
+  table.table.table-bordered.table-striped.table-condensed
+    thead
+      tr
+        th = @useful_links.human_attribute_name(:url)
+        th = @useful_links.human_attribute_name(:source)
+        th.actions = t(:actions)
+    tbody
+      = render @useful_links

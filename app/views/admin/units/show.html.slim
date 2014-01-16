@@ -1,0 +1,60 @@
+- content_for :language_selector do
+  = render_language_selector
+
+h1.heading
+  = title Unit.model_name.human.capitalize
+
+p
+  strong = Unit.human_attribute_name(:title)
+  ' :
+  = globalized { @unit.title }
+
+p
+  strong = Unit.human_attribute_name(:slug)
+  ' :
+  = @unit.slug
+
+p
+  strong = Unit.human_attribute_name(:course_id)
+  ' :
+  = globalized { @unit.course.title }
+
+- description = globalized { @unit.description }
+- if description.present?
+  = description
+  p
+    strong = Unit.human_attribute_name(:description)
+    ' :
+    = description
+
+p
+  strong = Unit.human_attribute_name(:random_steps_order)
+  ' :
+  = t(@unit.random_steps_order)
+
+p
+  strong = Unit.human_attribute_name(:free)
+  ' :
+  = t(@unit.free)
+
+p
+  strong = Unit.human_attribute_name(:published)
+  ' :
+  = t(@unit.published)
+
+- if @unit.latest_content.present?
+  = render partial: 'admin/latest_contents/show_fields', object: @unit.latest_content, as: 'latest_content'
+
+.form-actions
+  = link_to edit_admin_unit_path(@unit), class: 'btn' do
+    i.icon.icon-pencil
+    ' &nbsp;
+    = t("helpers.submit.unit.edit")
+  ' &nbsp;
+  = link_to admin_unit_path(@unit), class: 'btn btn-danger',
+            method: :delete, confirm: t(:delete_confirm, title: Unit.model_name.human) do
+    i.icon-white.icon-trash
+    ' &nbsp;
+    = t("helpers.submit.unit.destroy")
+
+

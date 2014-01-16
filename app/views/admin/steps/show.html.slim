@@ -1,0 +1,74 @@
+h1.heading
+  = title Step.model_name.human.capitalize
+
+- if @step.shared_template?
+  p
+    strong = Step.human_attribute_name(:shared_template)
+    ' :
+    = globalized { @step.shared_template }
+
+- if @step.ru_template?
+  p
+    strong = Step.human_attribute_name(:ru_template)
+    ' :
+    = @step.ru_template
+
+- if @step.en_template?
+  p
+    strong = Step.human_attribute_name(:en_template)
+    ' :
+    = @step.en_template
+
+- if @step.es_template?
+  p
+    strong = Step.human_attribute_name(:es_template)
+    ' :
+    = @step.es_template
+
+p
+  strong = Step.human_attribute_name(:ru)
+  ' :
+  = @step.ru
+
+- if @step.ru_regexp?
+  p
+    strong = Step.human_attribute_name(:ru_regexp)
+    ' :
+    = @step.ru_regexp
+
+p
+  strong = Step.human_attribute_name(:en)
+  ' :
+  = @step.en
+
+- if @step.en_regexp?
+  p
+    strong = Step.human_attribute_name(:en_regexp)
+    ' :
+    = @step.en_regexp
+
+- if @step.es?
+  p
+    strong = Step.human_attribute_name(:es)
+    ' :
+    = @step.es
+
+- if @step.es_regexp?
+  p
+    strong = Step.human_attribute_name(:es_regexp)
+    ' :
+    = @step.es_regexp
+
+.form-actions
+  = link_to edit_admin_step_path(@step), class: 'btn' do
+    i.icon.icon-pencil
+    ' &nbsp;
+    = t("helpers.submit.step.edit")
+  ' &nbsp;
+  = link_to admin_step_path(@step), class: 'btn btn-danger',
+            method: :delete, confirm: t(:delete_confirm, title: Step.model_name.human) do
+    i.icon-white.icon-trash
+    ' &nbsp;
+    = t("helpers.submit.step.destroy")
+
+

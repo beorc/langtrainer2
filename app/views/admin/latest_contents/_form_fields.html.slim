@@ -1,0 +1,19 @@
+.well
+  h3 = LatestContent.model_name.human.capitalize
+
+  .control-group
+    label.control-label = LatestContent.human_attribute_name(:title)
+    .controls = text_field_tag 'latest_content/title', globalized { latest_content.try(:title) }, class: 'span6'
+
+  .control-group
+    label.control-label = LatestContent.human_attribute_name(:released_at)
+    .controls = select_datetime latest_content.try(:released_at) || DateTime.now, prefix: 'latest_content/released_at'
+
+  .control-group
+    label.control-label = LatestContent.human_attribute_name(:description)
+    .controls = text_area_tag 'latest_content/description', globalized { latest_content.try(:description) }, rows: 4, class: 'span6'
+
+  - if latest_content.present? and latest_content.persisted?
+    .control-group
+      label.control-label = t(:delete)
+      .controls = check_box_tag 'latest_content/delete'

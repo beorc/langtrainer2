@@ -1,0 +1,10 @@
+.feedback-form
+  = simple_form_for @feedback || Feedback.new, url: feedbacks_path, remote: true do |f|
+    = f.input :message, as: :text, required: false, label: false, placeholder: t('placeholders.feedback.message'),
+      input_html: { rows: '4' }
+    .row-fluid
+      .span9
+        = f.input :contact_info, placeholder: t('placeholders.feedback.contact_info'), label: false,
+          required: false
+      .span3 = f.submit class: 'btn btn-block'
+

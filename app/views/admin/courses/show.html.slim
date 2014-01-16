@@ -1,0 +1,51 @@
+- content_for :language_selector do
+  = render_language_selector
+
+h1.heading
+  = title Course.model_name.human.capitalize
+
+p
+  strong = Course.human_attribute_name(:title)
+  ' :
+  = globalized { @course.title }
+
+p
+  strong = Course.human_attribute_name(:slug)
+  ' :
+  = @course.slug
+
+- short = globalized { @course.short }
+- if short.present?
+  p
+    strong = Course.human_attribute_name(:short)
+    ' :
+    = short
+
+- description = globalized { @course.description }
+- if description.present?
+  = description
+  p
+    strong = Course.human_attribute_name(:description)
+    ' :
+    = description
+
+p
+  strong = Course.human_attribute_name(:published)
+  ' :
+  = t(@course.published)
+
+= render partial: 'admin/latest_contents/show_fields', object: @course.latest_content, as: 'latest_content'
+
+.form-actions
+  = link_to edit_admin_course_path(@course), class: 'btn' do
+    i.icon.icon-pencil
+    ' &nbsp;
+    = t("helpers.submit.course.edit")
+  ' &nbsp;
+  = link_to admin_course_path(@course), class: 'btn btn-danger',
+            method: :delete, confirm: t(:delete_confirm, title: Course.model_name.human) do
+    i.icon-white.icon-trash
+    ' &nbsp;
+    = t("helpers.submit.course.destroy")
+
+
