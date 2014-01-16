@@ -3,8 +3,8 @@ Langtrainer2::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = { address: 'smtp.mandrillapp.com',
-                                         port: 587,
-                                         domain: 'gmail.com',
+                                         port: 25,
+                                         domain: 'langtrainer.com',
                                          authentication: :plain,
                                          user_name: ENV['MAILER_USER_NAME'],
                                          password: ENV['MAILER_PASSWORD'] }

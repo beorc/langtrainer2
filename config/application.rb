@@ -34,8 +34,8 @@ module Langtrainer2
     config.i18n.fallbacks = false
     config.i18n.available_locales = [:ru, :en]
 
-    config.action_mailer.default_options = { from: '"Foreign languages trainer LANGTRAINER.COM" <noreply@langtrainer.com>',
-                                             reply_to: '"Foreign languages trainer LANGTRAINER.COM" <noreply@langtrainer.com>' }
+    config.action_mailer.default_options = { from: '"Languages training service LANGTRAINER.COM" <noreply@langtrainer.com>',
+                                             reply_to: '"Languages training service LANGTRAINER.COM" <noreply@langtrainer.com>' }
 
     config.boxes_number = 5
     config.boxes_probabilities = [60, 25, 10, 8, 2]
