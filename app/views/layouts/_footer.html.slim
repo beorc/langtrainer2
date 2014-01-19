@@ -14,14 +14,10 @@
         /.footer-logo = image_tag 'logo-light.png'
       .span4
         h4.block-title
-          span = LatestContent.model_name.human(count: 2).capitalize
+          span = LatestContent.model_name.human(count: LatestContent.count).capitalize
         ul.unstyled.latest-content
-          li
-            = link_to 'Метод Пимслера: третий модуль', '#'
-          li
-            = link_to 'Метод Пимслера: второй модуль', '#'
-          li
-            = link_to 'Метод Пимслера: первый модуль', '#'
+          - LatestContent.by_date.limit(7).to_a.select(&:published?).each do |content|
+            li = link_to content.full_title, language_course_unit_path(Language.english, Course.first, Course.first.units.first)
       .span4
         h4.block-title
           span = t('.feedback')

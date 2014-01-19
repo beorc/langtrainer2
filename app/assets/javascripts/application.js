@@ -21,5 +21,6 @@
 //= require unicode-categories
 //= require jquery.machine
 //= require jquery.elastic
+//= require Chart
 
 //= require_tree .

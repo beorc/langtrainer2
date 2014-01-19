@@ -25,6 +25,12 @@ class LatestContent < ActiveRecord::Base
     return owner if owner.is_a?(Unit)
   end
 
+  def full_title
+    return owner.latest_content.title if owner.is_a?(Course)
+    return "#{owner.course.latest_content.title}: #{title}" if owner.is_a?(Unit)
+    title
+  end
+
   private
 
   def set_released_at

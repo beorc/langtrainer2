@@ -4,7 +4,7 @@
     span.entry-date.pull-right = l(latest_content.released_at.to_date, format: :long)
 
   .ci-header
-    h3 = latest_content.title
+    h3 = latest_content.full_title
   .ci-intro = latest_content.description
   .course-languages
     h4 = t('.select_learning_language')

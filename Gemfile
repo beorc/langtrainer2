@@ -31,18 +31,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
 gem "asset_sync"
 gem "rollbar"
 gem "redactor-rails", git: "https://github.com/SammyLin/redactor-rails.git"
@@ -52,6 +40,7 @@ gem "sitemplate_core", git: "git@gitlab.httplab.ru:sitemplate/sitemplate_core.gi
 gem 'http_accept_language', git: 'git://github.com/DouweM/http_accept_language.git', branch: 'no-middleware-no-crash'
 gem 'globalize', '~> 4.0'
 gem 'gon', '4.1.1'
+gem 'chart-js-rails'
 
 group :production do
   gem "unicorn"
