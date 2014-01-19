@@ -16,6 +16,7 @@ class Unit < ActiveRecord::Base
   has_many :step_mappings, dependent: :destroy
   has_many :steps, through: :step_mappings
   has_one :latest_content, as: :owner, dependent: :destroy
+  has_many :unit_advances, dependent: :destroy
 
   scope :published_only, -> { where(published: true) }
 end

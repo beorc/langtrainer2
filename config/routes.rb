@@ -19,14 +19,10 @@ Langtrainer2::Application.routes.draw do
     resources :useful_links
   end
 
-  put 'step_passed' => 'unit_statistics#step_passed'
-  put 'word_helped' => 'unit_statistics#word_helped'
-  put 'step_helped' => 'unit_statistics#step_helped'
-  put 'right_answer' => 'unit_statistics#right_answer'
-  put 'wrong_answer' => 'unit_statistics#wrong_answer'
-
-  put 'box_up' => 'boxes#box_up'
-  put 'box_down' => 'boxes#box_down'
+  put 'check_answer' => 'unit_advances#check_answer'
+  put 'next_step' => 'unit_advances#next_step'
+  put 'help_next_word' => 'unit_advances#help_next_word'
+  put 'show_right_answer' => 'unit_advances#show_right_answer'
 
   resources :languages, only: [], path: '' do
     put 'set_native', on: :member
