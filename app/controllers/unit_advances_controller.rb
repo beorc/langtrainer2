@@ -2,20 +2,32 @@ class UnitAdvancesController < ApplicationController
   respond_to :json
   before_filter :fetch_advance
 
-  def check_answer
-    render_markup_for(@stat)
+  def verify_answer
+    VerificationService.new(self, @advance, params).verify
   end
 
-  def unit_advances
-    render_markup_for(@stat)
+  def next_step
+    TrainingService.new(self, @advance).next_step
   end
 
-  def unit_advances
-    render_markup_for(@stat)
+  def help_next_word
+    TrainingService.new(self, @advance).help_next_word
   end
 
-  def unit_advances
-    render_markup_for(@stat)
+  def show_right_answer
+    TrainingService.new(self, @advance).show_right_answer
+  end
+
+  def right_answer
+    BoxesService.new(self, @advance).right_answer!
+    TrainingService.new(self, @advance).right_answer!
+    RevisionService.new(self, @advance, params).right_answer!
+  end
+
+  def wrong_answer
+    BoxesService.new(self, @advance).wrong_answer!
+    TrainingService.new(self, @advance).wrong_answer!
+    RevisionService.new(self, @advance, params).wrong_answer!
   end
 
   private
@@ -34,10 +46,5 @@ class UnitAdvancesController < ApplicationController
     end
 
     @advance = UnitAdvance.where(options).first_or_create
-  end
-
-  def render_markup_for(advances)
-    markup = view_context.render partial: 'units/advance', object: advances
-    render status: 200, json: { markup: markup }
   end
 end

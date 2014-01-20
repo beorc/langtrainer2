@@ -28,7 +28,12 @@ Langtrainer2::Application.routes.draw do
     put 'set_native', on: :member
 
     resources :courses, only: [], path: '' do
-      resources :units, only: :show, path: ''
+      resources :units, only: :show, path: '' do
+        member do
+          get :revision
+          get :training
+        end
+      end
     end
 
     get '/:language_id/:id', to: redirect('/%{language_id}/polyglot/%{id}')
