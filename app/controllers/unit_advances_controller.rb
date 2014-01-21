@@ -3,7 +3,7 @@ class UnitAdvancesController < ApplicationController
   before_filter :fetch_advance
 
   def verify_answer
-    VerificationService.new(self, @advance, params).verify
+    VerificationService.new(self, @advance, params).verify!
   end
 
   def next_step
