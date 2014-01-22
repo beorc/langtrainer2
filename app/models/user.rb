@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include UserConcerns::Base
-  has_many :boxes
   has_many :unit_advances, dependent: :destroy
 
   def self.devise_opts

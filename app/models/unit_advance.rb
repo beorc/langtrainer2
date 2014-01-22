@@ -1,11 +1,12 @@
 class UnitAdvance < ActiveRecord::Base
-  validates :steps, :unit_id, :language_id, presence: true
+  validates :steps, :language_id, presence: true
   validates :date, uniqueness: { scope: [:user_id, :unit_id, :language_id] }
   validates :session_token, presence: true, unless: :user_id?
   validates :user_id, presence: true, unless: :session_token?
 
   belongs_to :user
   belongs_to :unit
+  has_many :boxes, dependent: :destroy
 
   serialize :steps, Array
 
@@ -51,7 +52,10 @@ class UnitAdvance < ActiveRecord::Base
 
   def ensure_steps
     return steps if steps.present?
-    steps = fetch_steps
+    step_mappings = unit.step_mappings.from_language(language.slug).
+                                        to_language(native_language.slug)
+    step_mappings = @unit.random_steps_order? ? step_mappings.shuffled : step_mappings.ordered
+    steps = step_mappings.map(&:step).map(&:id)
   end
 
   def fetch_steps_from_previous_units
@@ -112,7 +116,7 @@ class UnitAdvance < ActiveRecord::Base
     return boxes if boxes.any?
     counter = 0
     Langtrainer2.config.boxes_number.times do
-      @course.boxes.create user: user, number: counter
+      @course.boxes.create unit_advance: self, number: counter
       counter += 1
     end
     boxes = @course.boxes.for_user(user)

@@ -5,10 +5,18 @@ class UnitsController < ApplicationController
     @course = Course.find(params[:course_id])
     @language = Language.find params[:language_id]
 
-    @unit_advance = UnitAdvance.where(date: Date.today,
-                                          user_id: current_user.id,
-                                          unit_id: @unit.id,
-                                          language_id: params[:language_id]).first_or_create
+    options = { date: Date.today,
+                unit_id: @unit.id,
+                language_id: params[:language_id] }
+
+    if user_signed_in?
+      options[:user_id] = current_user.id
+    else
+      session[:unit_advance_token] ||= UnitAdvance.generate_session_token
+      options[:session_token] = session[:unit_advance_token]
+    end
+
+    @unit_advance = fetch_advances(options).first_or_create
 
     gon.unit = @unit.slug
     gon.language = @language.slug

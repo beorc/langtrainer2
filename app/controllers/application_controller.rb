@@ -22,6 +22,17 @@ class ApplicationController < ActionController::Base
     Language.find(session[:language_id] || build_native_language)
   end
 
+  def fetch_advances(options)
+    if user_signed_in?
+      options[:user_id] = current_user.id
+    else
+      session[:unit_advance_token] ||= UnitAdvance.generate_session_token
+      options[:session_token] = session[:unit_advance_token]
+    end
+
+    UnitAdvance.where(options)
+  end
+
   private
 
   def build_native_language
