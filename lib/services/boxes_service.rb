@@ -1,39 +1,37 @@
 class BoxesService < UnitAdvanceService
 
   def right_answer!
-    next_box = fetch_user_boxes(Box.for_course(@course.id)).find_by(number: number + 1)
     if next_box.present?
-      mapping = @step.step_box_mappings.where(user_id: current_user.id,
-                                              box_id: current_step_box.id)
+      mapping = current_step_box.step_box_mappings.where(step_id: current_step.id)
       mapping.box = next_box
       mapping.save!
     end
-    render nothing: true
   end
 
   def wrong_answer!
-    first_box = current_user.boxes.for_course(@course.id).find_by(number: 0)
     if first_box.present?
-      mapping = @step.step_box_mappings.where(user_id: current_user.id,
-                                              box_id: current_step_box.id)
+      mapping = current_step_box.step_box_mappings.where(step_id: current_step.id)
       mapping.box = first_box
       mapping.save!
     end
-    render nothing: true
   end
 
   private
 
-  def fetch_user_boxes(boxes)
-    if unit_advance.user.present?
-      boxes.for_user(unit_advance.user)
-    else
-      boxes.for_session(unit_advance.session_token)
-    end
+  def first_box
+    @first_box ||= unit_advance.boxes.find_by(number: 0)
+  end
+
+  def next_box
+    @next_box ||= current_step_box.next_box
   end
 
   def current_step_box
-    fetch_user_boxes(current_step.boxes.for_course(unit_advance.course))
+    @current_step_box ||= unit_advance.boxes.with_step(current_step).first
+  end
+
+  def current_step_mapping
+    @current_step_mapping ||= current_step_box.step_box_mappings.where(step_id: current_step.id)
   end
 end
 

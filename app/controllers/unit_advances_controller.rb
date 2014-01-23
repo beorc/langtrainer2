@@ -30,6 +30,16 @@ class UnitAdvancesController < ApplicationController
     RevisionService.new(self, @advance, params).wrong_answer!
   end
 
+  def render_step(step)
+    native_slug = native_language.slug.to_sym
+    target_slug = @advance.language.slug.to_sym
+
+    render json: { step: { id: step.id,
+                           template: step.template,
+                           native_slug => step.send(native_slug),
+                           target_slug => step.send(target_slug) } }
+  end
+
   private
 
   def fetch_advance
