@@ -1,9 +1,7 @@
-class RevisionService < Struct.new(:controller, :unit_advance, params)
+class RevisionService < Struct.new(:unit_advance)
 
   def right_answer!
-  end
-
-  def wrong_answer!
+    unit_advance.step_revised!
   end
 end
 

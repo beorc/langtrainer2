@@ -17,10 +17,10 @@ class UnitsController < ApplicationController
     end
 
     @unit_advance = fetch_advances(options).first_or_create
+    @step = @unit_advance.fetch_step
 
     gon.unit = @unit.slug
     gon.language = @language.slug
-    gon.current_step = @unit_advance.current_step
 
     gon.check_answer_path = check_answer_path
     gon.next_step_path = next_step_path

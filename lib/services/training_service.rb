@@ -16,7 +16,7 @@ class TrainingService < Struct.new(:controller, :unit_advance)
       controller.render_step(next_step)
     else
       unit_advance.revised!
-      controller.render_step(next_step)
+      controller.render_step(unit_advance.fetch_step)
     end
   end
 
@@ -32,12 +32,7 @@ class TrainingService < Struct.new(:controller, :unit_advance)
   private
 
   def fetch_next_step
-    if unit_advance.revised?
-      @next_step ||= fetch_step_from_boxes
-    else
-      return if unit_advance.steps.count == unit_advance.current_step
-      @next_step ||= unit_advance.steps[unit_advance.current_step + 1]
-    end
+    @next_step ||= unit_advance.fetch_step
   end
 end
 

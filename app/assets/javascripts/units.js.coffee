@@ -1,43 +1,22 @@
 ns = initNamespaces('SITEMPLATE.units')
 
-ns.currentStep = null
-
-ns.rollBox = (path) ->
-  stepId = ns.currentStep.data('id')
-  $.ajax
-    url: path
-    data:
-      course_id: gon.course_id
-      step_id: stepId
-    type: 'put'
-    dataType: 'json'
-
-ns.notifyStatistics = (path) ->
-  $.ajax
-    url: path
-    data:
-      unit_statistic_id: gon.unit_statistic_id
-    type: 'put'
-    dataType: 'json'
-    success: (data) ->
-      $('.statistics').replaceWith(data.markup)
-
-ns.rollStep = () ->
-  ns.currentStep = ns.currentStep.next()
-
-  if ns.currentStep.length == 0
-    ns.currentStep = $('.steps .step:first')
-
-  template = $('.template').empty()
-  ns.currentStep.clone().appendTo template
-
-  ns.answerInput().val ''
-
-ns.answerInput = ->
-  $('#answer')
-
 ns.init = () ->
-  ns.currentStep = $('.steps .step:first')
+  sendRequest = (path, callback) ->
+    $.ajax
+      url: path
+      data:
+        unit: gon.unit
+        language: gon.language
+      type: 'put'
+      dataType: 'json'
+      success: (data) ->
+        callback(data) if callback
+
+  answerInput = ->
+    $('#answer')
+
+  currentStep = ->
+    $('.step')
 
   enableCommitButton = ->
     $('.actions a.check').removeClass('disabled')
@@ -45,36 +24,10 @@ ns.init = () ->
   disableCommitButton = ->
     $('.actions a.check').addClass('disabled')
 
-  answerCommited = ->
-    $('.actions a.next-step').removeClass('disabled')
-    ns.rollBox(gon.box_up_path)
-    ns.notifyStatistics(gon.right_answer_path)
-    ns.rollStep()
-
-  answerNotCommited = ->
-    ns.rollBox(gon.box_down_path)
-    ns.notifyStatistics(gon.wrong_answer_path)
-
-  commitAnswer = ->
-    input = ns.answerInput()
-    regexpString = ns.currentStep.data('regexp')
-    answer = input.val()
-    if regexpString && regexpString.length > 0
-      if answer.match(regexpString, 'i')
-        answerCommited()
-      else
-        answerNotCommited()
-    else
-      rightAnswer = ns.currentStep.data('translation')
-      if rightAnswer.match("^#{answer}", 'i') and rightAnswer.length == answer.length
-        answerCommited()
-      else
-        answerNotCommited()
-
   verifyAnswer = ->
     input = ns.answerInput()
     answer = input.val()
-    rightAnswer = ns.currentStep.data('translation')
+    rightAnswer = ns.currentStep().data('translation')
     input.removeClass('wrong').removeClass('right')
     if answer.length is 0
       disableCommitButton()
@@ -90,20 +43,20 @@ ns.init = () ->
     true
 
   $('.actions a.check').click () ->
-    if !$(@).hasClass('disabled')
-      commitAnswer()
+    return false if $(@).hasClass('disabled')
+    sendRequest gon.check_answer_path, (data) ->
+      $('.actions a.next-step').removeClass('disabled') if data.correct
     false
 
   $('.look').click ->
-    rightAnswer = ns.currentStep.data('translation')
+    rightAnswer = ns.currentStep().data('translation')
     ns.answerInput().removeClass('wrong').removeClass('right')
     ns.answerInput().val(rightAnswer)
-    ns.rollBox(gon.box_down_path)
-    ns.notifyStatistics(gon.step_helped_path)
+    sendRequest gon.show_right_answer_path
     false
 
   $('.show-next-word').click ->
-    rightAnswer = ns.currentStep.data('translation')
+    rightAnswer = ns.currentStep().data('translation')
     answer = ns.answerInput().val()
 
     return false if answer.indexOf(rightAnswer) >= 0
@@ -123,13 +76,14 @@ ns.init = () ->
 
     ns.answerInput().val("#{answer} #{nextWord}")
     verifyAnswer()
-    ns.notifyStatistics(gon.word_helped_path)
+    sendRequest gon.help_next_word_path
     false
 
   $('.actions a.next-step').click () ->
     if !$(@).hasClass('disabled')
       ns.rollStep()
-      ns.notifyStatistics(gon.step_passed_path)
+      sendRequest gon.next_step_path, (data) ->
+        $('.step').replaceWith(data.markup)
     false
 
   goToSelected = ->
@@ -161,11 +115,6 @@ ns.init = () ->
   ns.answerInput().focus()
 
   ns.answerInput().elastic()
-
-  $('select#course').change () ->
-    option = $(@).find('option:selected')
-    url = option.data('path')
-    window.location = url
 
   $('.actions').machine
     answering:

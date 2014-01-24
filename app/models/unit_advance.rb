@@ -52,6 +52,20 @@ class UnitAdvance < ActiveRecord::Base
     update_attribute(:revised, true)
   end
 
+  def step_revised!
+    update_attribute(:revised_steps_number, revised_steps_number + 1)
+  end
+
+  def fetch_step
+    if revised?
+      fetch_step_from_boxes
+    else
+      fetch_regular_step
+    end
+  end
+
+  private
+
   def fetch_step_from_boxes
     rand = rand(0..100)
 
@@ -81,7 +95,10 @@ class UnitAdvance < ActiveRecord::Base
     step
   end
 
-  private
+  def fetch_regular_step
+    return if steps.count == current_step
+    steps[current_step + 1]
+  end
 
   def ensure_steps
     return steps if steps.present?

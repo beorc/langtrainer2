@@ -3,15 +3,13 @@
 = render_courses_select
 = render_units_select
 
-- if @steps.empty?
+- if @step.nil?
   .container
     p.text-center = t('.no_sentences')
 - else
   .container.workspace
     .container.template
-      = render partial: 'step', object: @steps.first
-    .steps.hide
-      = render partial: 'step', collection: @steps
+      = render partial: 'step', object: @step
 
     .form-horizontal.control-group.string
       .container.answer
@@ -33,6 +31,6 @@
 
     = render_language_characters(@language.slug)
 
-    = render partial: 'statistics', object: @unit_statistic
+    /= render partial: 'statistics', object: @unit_statistic
 
     /= render 'units/hints/help'
