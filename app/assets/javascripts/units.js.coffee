@@ -45,14 +45,20 @@ ns.init = () ->
   $('.actions a.check').click () ->
     return false if $(@).hasClass('disabled')
     sendRequest gon.check_answer_path, (data) ->
-      $('.actions a.next-step').removeClass('disabled') if data.correct
+      if data.correct
+        $('.actions a.next-step').removeClass('disabled')
+        $('.actions').trigger('rightAnswer')
+      else
+        $('.actions a.next-step').addClass('disabled')
+        $('.actions').trigger('wrongAnswer')
     false
 
   $('.look').click ->
     rightAnswer = ns.currentStep().data('translation')
     ns.answerInput().removeClass('wrong').removeClass('right')
     ns.answerInput().val(rightAnswer)
-    sendRequest gon.show_right_answer_path
+    sendRequest gon.show_right_answer_path, (data) ->
+      $('.actions').trigger('rightAnswerShown')
     false
 
   $('.show-next-word').click ->
@@ -84,6 +90,7 @@ ns.init = () ->
       ns.rollStep()
       sendRequest gon.next_step_path, (data) ->
         $('.step').replaceWith(data.markup)
+        $('.actions').trigger('nextStepShown')
     false
 
   goToSelected = ->
@@ -117,6 +124,7 @@ ns.init = () ->
   ns.answerInput().elastic()
 
   $('.actions').machine
+    setClass: true
     answering:
       defaultState: true
       onEnter: ->
@@ -126,9 +134,32 @@ ns.init = () ->
         $('.actions .show-next-word').removeClass('disabled')
         $('.actions .look').removeClass('disabled')
       events: ->
-        showRightAnswer: 'showingRightAnswer'
+        rightAnswerShown: 'rightAnswer'
+        answeredRight: 'rightAnswer'
+        answeredWrong: 'wrongAnswer'
+        wait: 'waiting'
 
-    showingRightAnswer:
+    wrongAnswer:
+      onEnter: ->
+        $('#answer').removeAttr('disabled');
+        $('.actions .check').addClass('disabled')
+        $('.actions .next-step').addClass('disabled')
+        $('.actions .show-next-word').removeClass('disabled')
+        $('.actions .look').removeClass('disabled')
+      events: ->
+        rightAnswerShown: 'rightAnswer'
+
+    rightAnswer:
+      onEnter: ->
+        $('#answer').attr('disabled', 'disabled');
+        $('.actions .check').addClass('disabled')
+        $('.actions .next-step').removeClass('disabled')
+        $('.actions .show-next-word').addClass('disabled')
+        $('.actions .look').addClass('disabled')
+      events: ->
+        nextStepShown: 'answering'
+
+    waiting:
       onEnter: ->
         $('#answer').attr('disabled', 'disabled');
         $('.actions .check').addClass('disabled')
@@ -136,5 +167,7 @@ ns.init = () ->
         $('.actions .show-next-word').addClass('disabled')
         $('.actions .look').addClass('disabled')
       events: ->
-        showNextAnswer: 'answering'
+        answeredRight: 'rightAnswer'
+        answeredWrong: 'wrongAnswer'
+        error: 'answering'
 
