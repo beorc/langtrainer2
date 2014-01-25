@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140125094318) do
+ActiveRecord::Schema.define(version: 20140125171125) do
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -213,7 +213,7 @@ ActiveRecord::Schema.define(version: 20140125094318) do
   end
 
   create_table "unit_advances", force: true do |t|
-    t.integer  "user_id",                              null: false
+    t.integer  "user_id"
     t.integer  "unit_id",                              null: false
     t.integer  "language_id",                          null: false
     t.integer  "steps_passed",         default: 0
@@ -235,7 +235,7 @@ ActiveRecord::Schema.define(version: 20140125094318) do
   add_index "unit_advances", ["date"], name: "index_unit_advances_on_date", using: :btree
   add_index "unit_advances", ["native_language_id"], name: "index_unit_advances_on_native_language_id", using: :btree
   add_index "unit_advances", ["revised"], name: "index_unit_advances_on_revised", using: :btree
-  add_index "unit_advances", ["session_token"], name: "index_unit_advances_on_session_token", unique: true, using: :btree
+  add_index "unit_advances", ["session_token"], name: "index_unit_advances_on_session_token", using: :btree
   add_index "unit_advances", ["unit_id"], name: "index_unit_advances_on_unit_id", using: :btree
   add_index "unit_advances", ["user_id"], name: "index_unit_advances_on_user_id", using: :btree
 

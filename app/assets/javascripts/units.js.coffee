@@ -1,19 +1,18 @@
 ns = initNamespaces('SITEMPLATE.units')
 
 ns.init = () ->
-  sendRequest = (path, options, callback) ->
-    default_options = 
-    unit: gon.unit
-    language: gon.language
+  sendRequest = (path, extraParams) ->
+    params =
+      unit: gon.unit
+      language: gon.language
+
+    params = $.extend(params, extraParams) if extraParams
+
     $.ajax
       url: path
-      data:
-        unit: gon.unit
-        language: gon.language
+      data: params
       type: 'put'
       dataType: 'json'
-      success: (data) ->
-        callback(data) if callback
 
   answerInput = ->
     $('#answer')
@@ -47,20 +46,22 @@ ns.init = () ->
 
   $('.actions a.check').click () ->
     return false if $(@).hasClass('disabled')
-    sendRequest gon.verify_answer_path, (data) ->
-      if data.correct
-        $('.actions a.next-step').removeClass('disabled')
-        $('.actions').trigger('rightAnswer')
-      else
-        $('.actions a.next-step').addClass('disabled')
-        $('.actions').trigger('wrongAnswer')
+    $('.actions').trigger('wait')
+    sendRequest(gon.verify_answer_path, { answer: answerInput().val() })
+      .done (data) ->
+        if data.correct
+          $('.actions').trigger('rightAnswer')
+        else
+          $('.actions').trigger('wrongAnswer')
+      .fail ->
+        $('.actions').trigger('error')
     false
 
   $('.look').click ->
     rightAnswer = currentStep().data('translation')
     answerInput().removeClass('wrong').removeClass('right')
     answerInput().val(rightAnswer)
-    sendRequest gon.show_right_answer_path, (data) ->
+    sendRequest gon.show_right_answer_path, {}, (jqXHR) ->
       $('.actions').trigger('rightAnswerShown')
     false
 
@@ -90,7 +91,7 @@ ns.init = () ->
 
   $('.actions a.next-step').click () ->
     if !$(@).hasClass('disabled')
-      sendRequest gon.next_step_path, (data) ->
+      sendRequest gon.next_step_path, {}, (jqXHR) ->
         $('.step').replaceWith(data.markup)
         $('.actions').trigger('nextStepShown')
     false
@@ -126,7 +127,6 @@ ns.init = () ->
   answerInput().elastic()
 
   $('.actions').machine
-    setClass: true
     answering:
       defaultState: true
       onEnter: ->
@@ -135,7 +135,7 @@ ns.init = () ->
         $('.actions .next-step').addClass('disabled')
         $('.actions .show-next-word').removeClass('disabled')
         $('.actions .look').removeClass('disabled')
-      events: ->
+      events:
         rightAnswerShown: 'rightAnswer'
         answeredRight: 'rightAnswer'
         answeredWrong: 'wrongAnswer'
@@ -148,7 +148,7 @@ ns.init = () ->
         $('.actions .next-step').addClass('disabled')
         $('.actions .show-next-word').removeClass('disabled')
         $('.actions .look').removeClass('disabled')
-      events: ->
+      events:
         rightAnswerShown: 'rightAnswer'
 
     rightAnswer:
@@ -158,7 +158,7 @@ ns.init = () ->
         $('.actions .next-step').removeClass('disabled')
         $('.actions .show-next-word').addClass('disabled')
         $('.actions .look').addClass('disabled')
-      events: ->
+      events:
         nextStepShown: 'answering'
 
     waiting:
@@ -168,7 +168,7 @@ ns.init = () ->
         $('.actions .next-step').addClass('disabled')
         $('.actions .show-next-word').addClass('disabled')
         $('.actions .look').addClass('disabled')
-      events: ->
+      events:
         answeredRight: 'rightAnswer'
         answeredWrong: 'wrongAnswer'
         error: 'answering'
