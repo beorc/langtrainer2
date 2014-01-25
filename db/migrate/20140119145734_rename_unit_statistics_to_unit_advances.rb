@@ -9,6 +9,6 @@ class RenameUnitStatisticsToUnitAdvances < ActiveRecord::Migration
     add_column :unit_advances, :revised_steps_number, :integer, default: 0
 
     add_index :unit_advances, :session_token, unique: true
-    add_index :unit_advances, :complete
+    add_index :unit_advances, :revised
   end
 end

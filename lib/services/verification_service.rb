@@ -5,8 +5,10 @@ class VerificationService < UnitAdvanceService
     answer = params[:answer]
     matched = false
 
-    if current_step.regexp?
-      matched = /#{current_step.regexp}/.match(answer)
+    regexp = current_step.regexp(unit_advance.language.slug)
+
+    if regexp.present?
+      matched = /#{regexp}/.match(answer)
     else
       matched = /#{answer}/.match(right_answer)
     end
@@ -18,8 +20,3 @@ class VerificationService < UnitAdvanceService
     end
   end
 end
-
-
-
-
-

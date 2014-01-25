@@ -3,8 +3,6 @@ class StepBoxMapping < ActiveRecord::Base
 
   belongs_to :box
   belongs_to :step
-
-  scope :for_course, ->(course_id) { joins(:box).where(course_id: course_id) }
 end
 
 

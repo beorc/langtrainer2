@@ -1,5 +1,5 @@
 class UnitAdvance < ActiveRecord::Base
-  validates :steps, :language_id, presence: true
+  validates :steps, :language_id, :native_language_id, presence: true
   validates :date, uniqueness: { scope: [:user_id, :unit_id, :language_id] }
   validates :session_token, presence: true, unless: :user_id?
   validates :user_id, presence: true, unless: :session_token?
@@ -10,7 +10,8 @@ class UnitAdvance < ActiveRecord::Base
 
   serialize :steps, Array
 
-  before_validate :ensure_steps
+  before_validation :ensure_steps
+  after_create :create_boxes
 
   def self.generate_session_token
     loop do
@@ -21,6 +22,10 @@ class UnitAdvance < ActiveRecord::Base
 
   def language
     Language.find(language_id)
+  end
+
+  def native_language
+    Language.find(native_language_id)
   end
 
   def step_passed!
@@ -97,24 +102,24 @@ class UnitAdvance < ActiveRecord::Base
 
   def fetch_regular_step
     return if steps.count == current_step
-    steps[current_step + 1]
+    Step.find(steps[current_step])
   end
 
   def ensure_steps
     return steps if steps.present?
     step_mappings = unit.step_mappings.from_language(language.slug).
-                                        to_language(native_language.slug)
-    step_mappings = @unit.random_steps_order? ? step_mappings.shuffled : step_mappings.ordered
-    steps = step_mappings.map(&:step).map(&:id)
+                                       to_language(native_language.slug)
+    step_mappings = unit.random_steps_order? ? step_mappings.shuffled : step_mappings.ordered
+    self.steps = step_mappings.map(&:step).map(&:id)
+  end
 
+  def create_boxes
     boxes.destroy_all
     counter = 0
     Langtrainer2.config.boxes_number.times do
-      boxes.create course: @course, number: counter
+      boxes.create! number: counter
       counter += 1
     end
-    default_box = boxes.find_by_number(0)
-    default_box.steps = step_mappings.map(&:step)
-    default_box.save!
+    boxes.first.steps = Step.find(steps)
   end
 end

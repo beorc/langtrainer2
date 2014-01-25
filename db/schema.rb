@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140104111555) do
+ActiveRecord::Schema.define(version: 20140125094318) do
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -25,14 +25,12 @@ ActiveRecord::Schema.define(version: 20140104111555) do
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
   create_table "boxes", force: true do |t|
-    t.integer "user_id"
-    t.integer "course_id"
     t.integer "number"
+    t.integer "unit_advance_id"
   end
 
-  add_index "boxes", ["course_id"], name: "index_boxes_on_course_id", using: :btree
   add_index "boxes", ["number"], name: "index_boxes_on_number", using: :btree
-  add_index "boxes", ["user_id"], name: "index_boxes_on_user_id", using: :btree
+  add_index "boxes", ["unit_advance_id"], name: "index_boxes_on_unit_advance_id", using: :btree
 
   create_table "course_translations", force: true do |t|
     t.integer  "course_id",   null: false
@@ -214,23 +212,32 @@ ActiveRecord::Schema.define(version: 20140104111555) do
     t.text   "es_template"
   end
 
-  create_table "unit_statistics", force: true do |t|
-    t.integer  "user_id",                   null: false
-    t.integer  "unit_id",                   null: false
-    t.integer  "language_id",               null: false
-    t.integer  "steps_passed",  default: 0
-    t.integer  "words_helped",  default: 0
-    t.integer  "steps_helped",  default: 0
-    t.integer  "right_answers", default: 0
-    t.integer  "wrong_answers", default: 0
+  create_table "unit_advances", force: true do |t|
+    t.integer  "user_id",                              null: false
+    t.integer  "unit_id",                              null: false
+    t.integer  "language_id",                          null: false
+    t.integer  "steps_passed",         default: 0
+    t.integer  "words_helped",         default: 0
+    t.integer  "steps_helped",         default: 0
+    t.integer  "right_answers",        default: 0
+    t.integer  "wrong_answers",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "date"
+    t.string   "session_token"
+    t.text     "steps"
+    t.integer  "current_step",         default: 0
+    t.boolean  "revised",              default: false
+    t.integer  "revised_steps_number", default: 0
+    t.integer  "native_language_id"
   end
 
-  add_index "unit_statistics", ["date"], name: "index_unit_statistics_on_date", using: :btree
-  add_index "unit_statistics", ["unit_id"], name: "index_unit_statistics_on_unit_id", using: :btree
-  add_index "unit_statistics", ["user_id"], name: "index_unit_statistics_on_user_id", using: :btree
+  add_index "unit_advances", ["date"], name: "index_unit_advances_on_date", using: :btree
+  add_index "unit_advances", ["native_language_id"], name: "index_unit_advances_on_native_language_id", using: :btree
+  add_index "unit_advances", ["revised"], name: "index_unit_advances_on_revised", using: :btree
+  add_index "unit_advances", ["session_token"], name: "index_unit_advances_on_session_token", unique: true, using: :btree
+  add_index "unit_advances", ["unit_id"], name: "index_unit_advances_on_unit_id", using: :btree
+  add_index "unit_advances", ["user_id"], name: "index_unit_advances_on_user_id", using: :btree
 
   create_table "unit_translations", force: true do |t|
     t.integer  "unit_id",     null: false

@@ -39,10 +39,14 @@ class UnitAdvancesController < ApplicationController
   private
 
   def fetch_advance
+    unit = Unit.find(params[:unit])
+    language = Language.find(params[:language])
     options = { date: Date.today,
-                unit_id: params[:unit_id],
-                language_id: params[:language_id] }
+                unit_id: unit.id,
+                language_id: language.id,
+                native_language_id: native_language.id }
 
-    @advance = fetch_advances(options).first_or_create
+    @advance = fetch_advances(options).first
+    raise "Advance not found! (#{options.inspect})" if @advance.nil?
   end
 end

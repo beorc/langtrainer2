@@ -3,14 +3,11 @@ class Box < ActiveRecord::Base
   has_many :step_box_mappings, dependent: :destroy
   has_many :steps, through: :step_box_mappings
 
-  validates :course, presence: true
+  validates :unit_advance, presence: true
 
   scope :ordered_by_number, -> { order(:number) }
   scope :for_number, ->(number) { where(number: number) }
-
-  def self.with_step(step)
-    joins(:steps).where(step_id: step.id)
-  end
+  scope :with_step, ->(step) { joins(:steps).where('step_box_mappings.step_id = ?', step.id) }
 
   def random_step
     steps[rand(0..steps.count)]

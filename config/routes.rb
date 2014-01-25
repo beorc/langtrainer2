@@ -19,7 +19,7 @@ Langtrainer2::Application.routes.draw do
     resources :useful_links
   end
 
-  put 'check_answer' => 'unit_advances#check_answer'
+  put 'verify_answer' => 'unit_advances#verify_answer'
   put 'next_step' => 'unit_advances#next_step'
   put 'help_next_word' => 'unit_advances#help_next_word'
   put 'show_right_answer' => 'unit_advances#show_right_answer'

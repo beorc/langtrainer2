@@ -2,7 +2,7 @@ class BoxesService < UnitAdvanceService
 
   def right_answer!
     if next_box.present?
-      mapping = current_step_box.step_box_mappings.where(step_id: current_step.id)
+      mapping = current_step_box.step_box_mappings.where(step_id: current_step.id).first
       mapping.box = next_box
       mapping.save!
     end
@@ -10,7 +10,7 @@ class BoxesService < UnitAdvanceService
 
   def wrong_answer!
     if first_box.present?
-      mapping = current_step_box.step_box_mappings.where(step_id: current_step.id)
+      mapping = current_step_box.step_box_mappings.where(step_id: current_step.id).first
       mapping.box = first_box
       mapping.save!
     end
