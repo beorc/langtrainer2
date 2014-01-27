@@ -1,7 +1,6 @@
 class VerificationService < UnitAdvanceService
 
   def verify
-    right_answer = current_step.send(unit_advance.language.slug)
     answer = params[:answer]
     matched = false
 
@@ -10,7 +9,8 @@ class VerificationService < UnitAdvanceService
     if regexp.present?
       matched = /#{regexp}/.match(answer)
     else
-      matched = /#{answer}/.match(right_answer)
+      right_answer = Regexp.escape current_step.send(unit_advance.language.slug)
+      matched = /#{right_answer}/.match(answer)
     end
 
     if matched
