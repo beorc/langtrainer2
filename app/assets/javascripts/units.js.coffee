@@ -61,8 +61,9 @@ ns.init = () ->
     rightAnswer = currentStep().data('translation')
     answerInput().removeClass('wrong').removeClass('right')
     answerInput().val(rightAnswer)
-    sendRequest gon.show_right_answer_path, {}, (jqXHR) ->
-      $('.actions').trigger('rightAnswerShown')
+    sendRequest(gon.show_right_answer_path)
+      .done (data) ->
+        $('.actions').trigger('rightAnswerShown')
     false
 
   $('.show-next-word').click ->
@@ -91,9 +92,10 @@ ns.init = () ->
 
   $('.actions a.next-step').click () ->
     if !$(@).hasClass('disabled')
-      sendRequest gon.next_step_path, {}, (jqXHR) ->
-        $('.step').replaceWith(data.markup)
-        $('.actions').trigger('nextStepShown')
+      sendRequest(gon.next_step_path)
+        .done (data) ->
+          $('.step').replaceWith(data.markup)
+          $('.actions').trigger('nextStepShown')
     false
 
   goToSelected = ->
