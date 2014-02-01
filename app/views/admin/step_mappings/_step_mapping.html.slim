@@ -1,14 +1,15 @@
 tr
-  td = step.ru
-  td = step.en
-  td = step.es
+  td = step_mapping.unit.title
+  td = step_mapping.step.ru
+  td = step_mapping.step.en
+  td = step_mapping.step.es
   td
-    = link_to admin_step_path(step) do
+    = link_to admin_step_mapping_path(step_mapping) do
       i.fa.fa-eye
     '&nbsp;
-    = link_to edit_admin_step_path(step) do
+    = link_to edit_admin_step_mapping_path(step_mapping) do
       i.fa.fa-pencil
     '&nbsp;
-    = link_to admin_step_path(step), method: :delete,
+    = link_to admin_step_mapping_path(step_mapping), method: :delete,
               data: { confirm: t(:delete_confirm, title: Step.model_name.human ) } do
       i.fa.fa-trash-o
