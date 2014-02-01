@@ -50,7 +50,7 @@ end
 
 group :development do
   gem "capistrano"
-  require "capistrano"
+  #require "capistrano"
   gem "capistrano-ext"
   gem "rvm-capistrano"
   gem "capistrano_colors"
