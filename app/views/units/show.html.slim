@@ -17,15 +17,15 @@
         .actions
           ul.inline.pull-left
             li = link_to '#', class: 'check', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.check') do
-                i.icon-check
+                i.fa.fa-check
             li = link_to '#', class: 'next-step', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.next') do
-                i.icon-forward
+                i.fa.fa-forward
 
           ul.inline.pull-right
             li = link_to '#', class: 'show-next-word', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.next_word') do
-                i.icon-question-sign
+                i.fa.fa-question
             li = link_to '#', class: 'look', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.look') do
-                i.icon-eye-open
+                i.fa.fa-eye
 
     = render_language_characters(@language.slug)
     .container.alerts

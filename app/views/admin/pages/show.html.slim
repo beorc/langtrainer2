@@ -25,13 +25,13 @@
     .well == globalized { @page.content }
   .form-actions
     = link_to edit_admin_page_path, class: 'btn' do
-      i.icon.icon-pencil
+      i.fa.fa-pencil
       ' &nbsp;
       = t("helpers.submit.page.update")
     ' &nbsp;
     = link_to admin_page_path, class: 'btn',
               method: :delete, data: { confirm: t(:delete_confirm, title: @page.title) } do
-      i.icon-white.icon-trash
+      i.fa.fa-trash-o
       ' &nbsp;
       = t('helpers.submit.page.destroy')
 

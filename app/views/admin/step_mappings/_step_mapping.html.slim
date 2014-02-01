@@ -4,11 +4,11 @@ tr
   td = step.es
   td
     = link_to admin_step_path(step) do
-      i.icon-eye
+      i.fa.fa-eye
     '&nbsp;
     = link_to edit_admin_step_path(step) do
-      i.icon-pencil
+      i.fa.fa-pencil
     '&nbsp;
     = link_to admin_step_path(step), method: :delete,
               data: { confirm: t(:delete_confirm, title: Step.model_name.human ) } do
-      i.icon-trash
+      i.fa.fa-trash-o

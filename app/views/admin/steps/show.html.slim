@@ -61,13 +61,13 @@ p
 
 .form-actions
   = link_to edit_admin_step_path(@step), class: 'btn' do
-    i.icon.icon-pencil
+    i.fa.fa-pencil
     ' &nbsp;
     = t("helpers.submit.step.edit")
   ' &nbsp;
   = link_to admin_step_path(@step), class: 'btn btn-danger',
             method: :delete, confirm: t(:delete_confirm, title: Step.model_name.human) do
-    i.icon-white.icon-trash
+    i.fa.fa-trash-o
     ' &nbsp;
     = t("helpers.submit.step.destroy")
 

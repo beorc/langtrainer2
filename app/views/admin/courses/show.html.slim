@@ -38,13 +38,13 @@ p
 
 .form-actions
   = link_to edit_admin_course_path(@course), class: 'btn' do
-    i.icon.icon-pencil
+    i.fa.fa-pencil
     ' &nbsp;
     = t("helpers.submit.course.edit")
   ' &nbsp;
   = link_to admin_course_path(@course), class: 'btn btn-danger',
             method: :delete, confirm: t(:delete_confirm, title: Course.model_name.human) do
-    i.icon-white.icon-trash
+    i.fa.fa-trash-o
     ' &nbsp;
     = t("helpers.submit.course.destroy")
 

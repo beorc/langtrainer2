@@ -29,13 +29,13 @@ p
 
 .form-actions
   = link_to edit_admin_useful_link_path(@useful_link), class: 'btn' do
-    i.icon.icon-pencil
+    i.fa.fa-pencil
     ' &nbsp;
     = t("helpers.submit.useful_link.edit")
   ' &nbsp;
   = link_to admin_useful_link_path(@useful_link), class: 'btn btn-danger',
             method: :delete, confirm: t(:delete_confirm, title: UsefulLink.model_name.human) do
-    i.icon-white.icon-trash
+    i.fa.fa-trash-o
     ' &nbsp;
     = t("helpers.submit.useful_link.destroy")
 

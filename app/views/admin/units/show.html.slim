@@ -47,13 +47,13 @@ p
 
 .form-actions
   = link_to edit_admin_unit_path(@unit), class: 'btn' do
-    i.icon.icon-pencil
+    i.fa.fa-pencil
     ' &nbsp;
     = t("helpers.submit.unit.edit")
   ' &nbsp;
   = link_to admin_unit_path(@unit), class: 'btn btn-danger',
             method: :delete, confirm: t(:delete_confirm, title: Unit.model_name.human) do
-    i.icon-white.icon-trash
+    i.fa.fa-trash-o
     ' &nbsp;
     = t("helpers.submit.unit.destroy")
 

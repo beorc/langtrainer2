@@ -6,8 +6,8 @@ tr
   td = globalized { unit.course.title }
   td
     = link_to edit_admin_unit_path(unit) do
-      i.icon-pencil
+      i.fa.fa-pencil
     '&nbsp;
     = link_to admin_unit_path(unit), method: :delete,
               data: { confirm: t(:delete_confirm, title: Unit.model_name.human ) } do
-      i.icon-trash
+      i.fa.fa-trash-o
