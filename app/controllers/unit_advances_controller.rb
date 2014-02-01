@@ -36,6 +36,10 @@ class UnitAdvancesController < ApplicationController
     render json: { markup: markup }
   end
 
+  def render_nothing
+    render nothing: true
+  end
+
   private
 
   def fetch_unit_advance

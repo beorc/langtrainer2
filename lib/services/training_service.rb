@@ -24,11 +24,13 @@ class TrainingService < Struct.new(:controller, :unit_advance)
 
   def help_next_word
     unit_advance.word_helped!
+    controller.render_nothing
   end
 
   def show_right_answer
     unit_advance.step_helped!
     unit_advance.step_passed!
+    controller.render_nothing
   end
 end
 

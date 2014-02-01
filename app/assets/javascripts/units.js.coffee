@@ -72,8 +72,9 @@ ns.init = () ->
     rightAnswer = currentStep().data('translation')
     answerInput().removeClass('wrong').removeClass('right')
     answerInput().val(rightAnswer)
+    $('.actions').trigger('wait')
     sendRequest(gon.show_right_answer_path)
-      .done (data) ->
+      .always ->
         $('.actions').trigger('rightAnswerShown')
     false
 
@@ -108,6 +109,7 @@ ns.init = () ->
           $('.step').replaceWith(data.markup)
           answerInput().val('')
           clearComments()
+          answerInput().removeClass('wrong').removeClass('right')
           $('.actions').trigger('nextStepShown')
     false
 
@@ -144,11 +146,12 @@ ns.init = () ->
     answering:
       defaultState: true
       onEnter: ->
-        $('#answer').removeAttr('disabled');
+        answerInput().removeAttr('disabled');
         $('.actions .check').addClass('disabled')
         $('.actions .next-step').addClass('disabled')
         $('.actions .show-next-word').removeClass('disabled')
         $('.actions .look').removeClass('disabled')
+        answerInput().focus()
       events:
         rightAnswerShown: 'rightAnswer'
         answeredRight: 'rightAnswer'
@@ -164,7 +167,7 @@ ns.init = () ->
 
     rightAnswer:
       onEnter: ->
-        $('#answer').attr('disabled', 'disabled');
+        answerInput().attr('disabled', 'disabled');
         $('.actions .check').addClass('disabled')
         $('.actions .next-step').removeClass('disabled')
         $('.actions .show-next-word').addClass('disabled')
@@ -174,7 +177,7 @@ ns.init = () ->
 
     waiting:
       onEnter: ->
-        $('#answer').attr('disabled', 'disabled');
+        answerInput().attr('disabled', 'disabled');
         $('.actions .check').addClass('disabled')
         $('.actions .next-step').addClass('disabled')
         $('.actions .show-next-word').addClass('disabled')
@@ -182,6 +185,7 @@ ns.init = () ->
       events:
         answeredRight: 'rightAnswer'
         answeredWrong: 'wrongAnswer'
+        rightAnswerShown: 'rightAnswer'
         error: 'error'
 
     error:
