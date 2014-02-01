@@ -1,7 +1,16 @@
 - load_controller_script
 
-= render_courses_select
-= render_units_select
+.training-navigation
+  .form-horizontal.pull-left
+    .control-group
+      label.control-label for='course'
+        = Course.model_name.human.capitalize
+      .controls = render_courses_select
+  .form-horizontal.pull-left
+    .control-group
+      label.control-label for='course'
+        = Unit.model_name.human.capitalize
+      .controls = render_units_select
 
 - if @step.nil?
   .container

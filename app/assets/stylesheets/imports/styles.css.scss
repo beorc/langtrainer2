@@ -14,6 +14,10 @@ a {
     text-decoration: underline;
   }
 
+  &:active {
+    text-decoration: none;
+  }
+
   &:focus {
     color: $foregroundColor;
   }
@@ -36,8 +40,7 @@ body.boxed {
   background-size: cover;
   position: relative;
   padding: 40px 0 50px;
-}
-
+} 
 body.boxed div.body {
   -moz-box-shadow:0 0 14px rgba(0,0,0,0.15);
   -webkit-box-shadow:0 0 14px rgba(0,0,0,0.15);

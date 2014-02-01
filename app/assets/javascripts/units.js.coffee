@@ -116,9 +116,8 @@ ns.init = () ->
     path = option.data('path')
     window.location = path
 
-  $('.courses-list select').change goToSelected
-
-  $('.units-list select').change goToSelected
+  $('select#course').change goToSelected
+  $('select#unit').change goToSelected
 
   $('body').on 'click', '.language-characters button.shift', ->
     language-characters = $(@).closest('.language-characters')
