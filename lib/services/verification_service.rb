@@ -4,6 +4,7 @@ class VerificationService < UnitAdvanceService
     answer = params[:answer]
     matched = false
 
+    Rails.logger.info "============================================ #{current_step.inspect} \n--- #{answer.inspect}"
     regexp = current_step.regexp(unit_advance.language.slug)
 
     if regexp.present?

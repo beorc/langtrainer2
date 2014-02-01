@@ -44,15 +44,26 @@ ns.init = () ->
     verifyAnswer()
     true
 
+  clearComments = ->
+    $('.comment').addClass('hide')
+
+  handleComment = (comment, element) ->
+    clearComments()
+    if comment
+      element.text(comment).removeClass('hide')
+    false
+
   $('.actions a.check').click () ->
     return false if $(@).hasClass('disabled')
     $('.actions').trigger('wait')
     sendRequest(gon.verify_answer_path, { answer: answerInput().val() })
       .done (data) ->
         if data.correct
-          $('.actions').trigger('rightAnswer')
+          handleComment(data.comment, $('.comment.correct'))
+          $('.actions').trigger('answeredRight')
         else
-          $('.actions').trigger('wrongAnswer')
+          handleComment(data.comment, $('.comment.wrong'))
+          $('.actions').trigger('answeredWrong')
       .fail ->
         $('.actions').trigger('error')
     false
@@ -95,6 +106,8 @@ ns.init = () ->
       sendRequest(gon.next_step_path)
         .done (data) ->
           $('.step').replaceWith(data.markup)
+          answerInput().val('')
+          clearComments()
           $('.actions').trigger('nextStepShown')
     false
 
@@ -145,13 +158,10 @@ ns.init = () ->
 
     wrongAnswer:
       onEnter: ->
-        $('#answer').removeAttr('disabled');
-        $('.actions .check').addClass('disabled')
-        $('.actions .next-step').addClass('disabled')
-        $('.actions .show-next-word').removeClass('disabled')
-        $('.actions .look').removeClass('disabled')
+        $('.actions').trigger('startAnswering')
       events:
         rightAnswerShown: 'rightAnswer'
+        startAnswering: 'answering'
 
     rightAnswer:
       onEnter: ->
@@ -173,5 +183,10 @@ ns.init = () ->
       events:
         answeredRight: 'rightAnswer'
         answeredWrong: 'wrongAnswer'
-        error: 'answering'
+        error: 'error'
+
+    error:
+      onEnter: ->
+        clearComments()
+        $('.error.alert').removeClass('hide')
 

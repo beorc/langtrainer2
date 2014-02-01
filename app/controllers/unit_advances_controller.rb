@@ -1,34 +1,34 @@
 class UnitAdvancesController < ApplicationController
   respond_to :json
-  before_filter :fetch_advance
+  before_filter :fetch_unit_advance
 
   def verify_answer
-    VerificationService.new(self, @advance, params).verify
+    VerificationService.new(self, @unit_advance, params).verify
   end
 
   def next_step
-    TrainingService.new(self, @advance).next_step
+    TrainingService.new(self, @unit_advance).next_step
   end
 
   def help_next_word
-    TrainingService.new(self, @advance).help_next_word
+    TrainingService.new(self, @unit_advance).help_next_word
   end
 
   def show_right_answer
-    TrainingService.new(self, @advance).show_right_answer
+    TrainingService.new(self, @unit_advance).show_right_answer
   end
 
   def right_answer
-    BoxesService.new(self, @advance).right_answer!
-    RevisionService.new(@advance).right_answer!
-    TrainingService.new(self, @advance).right_answer!
-    render json: { correct: true }
+    BoxesService.new(self, @unit_advance).right_answer!
+    RevisionService.new(@unit_advance).right_answer!
+    TrainingService.new(self, @unit_advance).right_answer!
+    render json: { correct: true, comment: t('units.show.comments.correct') }
   end
 
   def wrong_answer
-    BoxesService.new(self, @advance).wrong_answer!
-    TrainingService.new(self, @advance).wrong_answer!
-    render json: { correct: false }
+    BoxesService.new(self, @unit_advance).wrong_answer!
+    TrainingService.new(self, @unit_advance).wrong_answer!
+    render json: { correct: false, comment: t('units.show.comments.wrong') }
   end
 
   def render_step(step)
@@ -38,7 +38,7 @@ class UnitAdvancesController < ApplicationController
 
   private
 
-  def fetch_advance
+  def fetch_unit_advance
     unit = Unit.find(params[:unit])
     language = Language.find(params[:language])
     options = { date: Date.today,
@@ -46,7 +46,7 @@ class UnitAdvancesController < ApplicationController
                 language_id: language.id,
                 native_language_id: native_language.id }
 
-    @advance = fetch_advances(options).first
-    raise "Advance not found! (#{options.inspect})" if @advance.nil?
+    @unit_advance = fetch_advances(options).first
+    raise "Advance not found! (#{options.inspect})" if @unit_advance.nil?
   end
 end

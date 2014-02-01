@@ -11,7 +11,9 @@ class TrainingService < Struct.new(:controller, :unit_advance)
 
   def next_step
     unit_advance.step_passed!
-    next_step = fetch_next_step
+    unit_advance.advance!
+
+    next_step = unit_advance.fetch_step
     if next_step.present?
       controller.render_step(next_step)
     else
@@ -27,12 +29,6 @@ class TrainingService < Struct.new(:controller, :unit_advance)
   def show_right_answer
     unit_advance.step_helped!
     unit_advance.step_passed!
-  end
-
-  private
-
-  def fetch_next_step
-    @next_step ||= unit_advance.fetch_step
   end
 end
 

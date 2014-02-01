@@ -11,25 +11,27 @@
     .container.template
       = render partial: 'step', object: @step
 
-    .form-horizontal.control-group.string
-      .container.answer
-        .wrapper
-          = text_area_tag :answer, nil, class: 'answer', placeholder: t('.answer_placeholder'), spellcheck: false, autocomplete: 'off'
-          .actions
-            ul.inline.pull-left
-              li = link_to '#', class: 'check', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.check') do
-                  i.icon-check
-              li = link_to '#', class: 'next-step', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.next') do
-                  i.icon-forward
+    .container.answer
+      .wrapper
+        = text_area_tag :answer, nil, class: 'answer', placeholder: t('.answer_placeholder'), spellcheck: false, autocomplete: 'off'
+        .actions
+          ul.inline.pull-left
+            li = link_to '#', class: 'check', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.check') do
+                i.icon-check
+            li = link_to '#', class: 'next-step', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.next') do
+                i.icon-forward
 
-            ul.inline.pull-right
-              li = link_to '#', class: 'show-next-word', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.next_word') do
-                  i.icon-question-sign
-              li = link_to '#', class: 'look', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.look') do
-                  i.icon-eye-open
-
+          ul.inline.pull-right
+            li = link_to '#', class: 'show-next-word', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.next_word') do
+                i.icon-question-sign
+            li = link_to '#', class: 'look', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('.look') do
+                i.icon-eye-open
 
     = render_language_characters(@language.slug)
+    .container.alerts
+      .comment.correct.alert.alert-success.text-center.hide
+      .comment.wrong.alert.text-center.hide
+      .comment.error.alert.alert-error.text-center.hide = t('.comments.error')
 
     /= render partial: 'statistics', object: @unit_statistic
 

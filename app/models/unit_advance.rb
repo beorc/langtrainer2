@@ -61,6 +61,10 @@ class UnitAdvance < ActiveRecord::Base
     update_attribute(:revised_steps_number, revised_steps_number + 1)
   end
 
+  def advance!
+    increment!(:current_step)
+  end
+
   def fetch_step
     if revised?
       fetch_step_from_boxes
