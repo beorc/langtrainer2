@@ -7,6 +7,7 @@ class UnitAdvance < ActiveRecord::Base
   belongs_to :user
   belongs_to :unit
   has_many :boxes, dependent: :destroy
+  has_many :snapshots, class_name: 'UnitAdvance::Snapshot', dependent: :destroy
 
   serialize :steps, Array
 
@@ -71,6 +72,16 @@ class UnitAdvance < ActiveRecord::Base
     else
       fetch_regular_step
     end
+  end
+
+  def create_snapshot!
+    snapshots.where(date: Date.today).destroy!
+    snapshots.create!(date: Date.today,
+                      steps_passed: steps_passed,
+                      words_helped: words_helped,
+                      steps_helped: steps_helped,
+                      right_answers: right_answers,
+                      wrong_answers: wrong_answers)
   end
 
   private

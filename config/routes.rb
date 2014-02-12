@@ -19,6 +19,10 @@ Langtrainer2::Application.routes.draw do
     resources :useful_links
   end
 
+  namespace :user do
+    resource :charts, only: :show
+  end
+
   put 'verify_answer' => 'unit_advances#verify_answer'
   put 'next_step' => 'unit_advances#next_step'
   put 'help_next_word' => 'unit_advances#help_next_word'

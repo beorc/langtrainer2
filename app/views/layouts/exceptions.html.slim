@@ -1,0 +1,21 @@
+doctype 5
+html
+  head
+    = favicon_link_tag
+
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+
+    = include_gon
+    = raw yield :load_controller_javascript
+
+    = csrf_meta_tags
+  body.boxed
+    / перед #page-container никаких дополнительных блоков быть не должно, иначе не будет
+    / правильно работать sticky-footer
+    #page.body
+      = render 'layouts/header'
+      .container.content class="#{controller_name.dasherize} #{action_name.dasherize}"
+        = render 'layouts/messages'
+        = yield
+      = render 'layouts/footer'

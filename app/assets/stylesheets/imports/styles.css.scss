@@ -2857,6 +2857,11 @@ h1 {
   line-height: 18px;
 }
 
+.tab-content {
+  h2 { margin-top: 0; }
+  margin-top: 50px;
+}
+
 .footer input, .footer textarea {
   background-color: #B0966F;
   color: $footerPlaceholderColor;

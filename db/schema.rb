@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140125171125) do
+ActiveRecord::Schema.define(version: 20140206184056) do
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -212,6 +212,21 @@ ActiveRecord::Schema.define(version: 20140125171125) do
     t.text   "es_template"
   end
 
+  create_table "unit_advance_snapshots", force: true do |t|
+    t.integer  "unit_advance_id"
+    t.integer  "steps_passed",    default: 0
+    t.integer  "words_helped",    default: 0
+    t.integer  "steps_helped",    default: 0
+    t.integer  "right_answers",   default: 0
+    t.integer  "wrong_answers",   default: 0
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "unit_advance_snapshots", ["unit_advance_id", "date"], name: "index_unit_advance_snapshots_on_unit_advance_id_and_date", unique: true, using: :btree
+  add_index "unit_advance_snapshots", ["unit_advance_id"], name: "index_unit_advance_snapshots_on_unit_advance_id", using: :btree
+
   create_table "unit_advances", force: true do |t|
     t.integer  "user_id"
     t.integer  "unit_id",                              null: false
@@ -223,7 +238,6 @@ ActiveRecord::Schema.define(version: 20140125171125) do
     t.integer  "wrong_answers",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "date"
     t.string   "session_token"
     t.text     "steps"
     t.integer  "current_step",         default: 0
@@ -232,7 +246,6 @@ ActiveRecord::Schema.define(version: 20140125171125) do
     t.integer  "native_language_id"
   end
 
-  add_index "unit_advances", ["date"], name: "index_unit_advances_on_date", using: :btree
   add_index "unit_advances", ["native_language_id"], name: "index_unit_advances_on_native_language_id", using: :btree
   add_index "unit_advances", ["revised"], name: "index_unit_advances_on_revised", using: :btree
   add_index "unit_advances", ["session_token"], name: "index_unit_advances_on_session_token", using: :btree

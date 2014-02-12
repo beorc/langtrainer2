@@ -11,14 +11,8 @@ gem 'sass-rails', '~> 4.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 
 
 
@@ -32,7 +26,6 @@ group :doc do
 end
 
 gem "asset_sync"
-gem "rollbar"
 gem "redactor-rails", git: "https://github.com/SammyLin/redactor-rails.git"
 gem "simple_form", git: "git://github.com/plataformatec/simple_form.git"
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
@@ -46,6 +39,7 @@ group :production do
   gem "unicorn"
   gem "daemons"
   gem "whenever", require: false
+  gem "exception_notification", "~> 4.0.1"
 end
 
 group :development do

@@ -5,8 +5,7 @@ class UnitsController < ApplicationController
     @course = Course.find(params[:course_id])
     @language = Language.find params[:language_id]
 
-    options = { date: Date.today,
-                unit_id: @unit.id,
+    options = { unit_id: @unit.id,
                 language_id: params[:language_id],
                 native_language_id: native_language.id }
 

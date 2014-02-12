@@ -1,68 +1,20 @@
-/ Лейаут используется на страницах профиля пользователя.
 doctype 5
 html
   head
-    / FIXME: После развертывания проекта включить мета-тэги.
-    / = display_meta_tags(site: t(:app_name), separator: '–', reverse: true)
-    = favicon_link_tag
-
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application'
-
-    = include_gon
-    = raw yield :load_controller_javascript
-    / - if render_ga_include?
-    /   script[src="http://www.google-analytics.com/ga.js" type="text/javascript"]
-
-    = csrf_meta_tags
-  body[class="#{controller_name.dasherize} #{action_name.dasherize}"]
-
-    / FIXME: После развертывания проекта включить топ-панель, или же выключить.
-    / вызов navbar_block лучше не удалять, иначе не будет отображаться сообщение об устаревшем браузере.
-    = navbar_block
-      / = render partial: 'shared/top_bar/top_panel'
-
-    = page_block
-      header
-        / FIXME: После развертывания проекта удалить контейнер с алертом.
-        .container
-          .alert.alert-error
-            p
-              strong Базовая версия лейаута страниц профиля пользователя.
-              '&nbsp; Эта страница использует базовую версию лейаута профиля пользователя.
-            p
-              'Нужно отредактировать файл
-              code app/views/layouts/user_profile.html.slim
-            ol[style='list-style: decimal;']
-              li Включить отображение meta_tags (нужно для тайтлов страниц)
-              li Включить top_panel (ссылки логина/регистрации/личного кабинета пользователя)
-              li Включить header (стилизация шапки сайта)
-              li Включить flash_messages (flash-сообщения из sitemplate_core)
-              li Включить footer (стилизация футера сайта)
-              li
-                'Возможно нужно будет создать css файл
-                code app/assets/stylesheets/user_profile_overrides.css.scss
-                '&nbsp;для правки стандартных стилей гема с целью приведения их к общему виду со стилями приложения
-              li Удалить это сообщение
-
-        / FIXME: После развертывания проекта включить шапку и flash.
-        / Если по каким-то причинам flash-сообщения рендерятся в header, второй раз их
-        / включать не нужно.
-        / = render partial: 'shared/header'
-        / = render partial: 'shared/flash_messages'
-      #page-content
-        / Используется для фона контент-области.
-        .container-wider
-          .container
-            .page-header: h1 = t('user_profile.title')
-            .row-fluid
-              .span3
-                / На всех страницах профиля пользователя отображаем сайдбар с навигацией
-                = render_private_area_navigation
-              .span9
-                = yield
-
-    = footer_block
-      / FIXME: После развертывания проекта включить футер, или удалить пустой footer_block
-      / = render partial: 'shared/footer'
-
+    = render 'layouts/head'
+  body.boxed
+    - if not has_native_language?
+      = render 'layouts/language_dialog'
+    #page.body
+      = render 'layouts/header'
+      .container.content class="#{controller_name.dasherize} #{action_name.dasherize}"
+        = render 'layouts/messages'
+        .tabbable.tabs-right
+          ul.nav.nav-tabs
+            = active_link_to edit_user_registration_path, wrap_tag: :li do
+              i.fa.fa-user
+            = active_link_to user_charts_path, wrap_tag: :li do
+              i.fa.fa-bar-chart-o
+          .tab-content
+            = yield
+      = render 'layouts/footer'

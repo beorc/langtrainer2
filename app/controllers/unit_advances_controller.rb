@@ -45,8 +45,7 @@ class UnitAdvancesController < ApplicationController
   def fetch_unit_advance
     unit = Unit.find(params[:unit])
     language = Language.find(params[:language])
-    options = { date: Date.today,
-                unit_id: unit.id,
+    options = { unit_id: unit.id,
                 language_id: language.id,
                 native_language_id: native_language.id }
 

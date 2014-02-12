@@ -23,4 +23,11 @@ namespace :langtrainer2 do
       end
     end
   end
+
+  desc 'Creates snapshots of unit advances'
+  task create_snapshots: :environment do
+    UnitAdvance.where('updated_at >= ?', Date.today).each do |a|
+      a.create_snapshot!
+    end
+  end
 end

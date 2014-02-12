@@ -88,4 +88,9 @@ Langtrainer2::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  config.middleware.use ExceptionNotification::Rack,
+    email: {
+      sender_address: %{"notifier" <noreply@langtrainer.com>},
+      exception_recipients: %w{beorc@langtrainer.com}
+    }
 end
