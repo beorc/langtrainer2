@@ -34,7 +34,8 @@ p
   ' :
   = t(@course.published)
 
-= render partial: 'admin/latest_contents/show_fields', object: @course.latest_content, as: 'latest_content'
+- if @course.latest_content
+  = render partial: 'admin/latest_contents/show_fields', object: @course.latest_content, as: 'latest_content'
 
 .form-actions
   = link_to edit_admin_course_path(@course), class: 'btn' do

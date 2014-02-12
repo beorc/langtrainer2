@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :fetch_about_page
   before_filter :set_locale
   before_filter :authenticate
+  before_filter :fetch_latest_contents
 
   def fetch_about_page
     @about_page = Page.find_by(slug: 'about')
@@ -81,5 +82,9 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic do |username, password|
       username == ENV['LANGTRAINER2_LOGIN'] && password == ENV['LANGTRAINER2_PASSWORD']
     end
+  end
+
+  def fetch_latest_contents
+    @latest_contents = Unit.latest_contents
   end
 end

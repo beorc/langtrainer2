@@ -19,5 +19,9 @@ class Unit < ActiveRecord::Base
   has_many :unit_advances, dependent: :destroy
 
   scope :published_only, -> { where(published: true) }
+
+  def self.latest_contents
+    LatestContent.where(owner_type: 'Unit', owner_id: published_only.pluck(:id))
+  end
 end
 

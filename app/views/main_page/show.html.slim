@@ -21,9 +21,9 @@
       h2 = Course.model_name.human(count: 2).capitalize
       = render partial: 'course', collection: Course.published_only
 
-    - if LatestContent.any?
-      h2 = LatestContent.model_name.human(count: LatestContent.count).capitalize
-      = render partial: 'latest_content', collection: LatestContent.by_date.to_a.select(&:published?)
+    - if @latest_contents.any?
+      h2 = LatestContent.model_name.human(count: @latest_contents.count).capitalize
+      = render partial: 'latest_content', collection: @latest_contents
 
   .span3
     h2 = UsefulLink.model_name.human(count: 2).capitalize

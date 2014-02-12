@@ -14,9 +14,9 @@
         /.footer-logo = image_tag 'logo-light.png'
       .span4
         h4.block-title
-          span = LatestContent.model_name.human(count: LatestContent.count).capitalize
+          span = LatestContent.model_name.human(count: @latest_contents.count).capitalize
         ul.unstyled.latest-content
-          - LatestContent.by_date.limit(7).to_a.select(&:published?).each do |content|
+          - @latest_contents.by_date.limit(7).to_a.select(&:published?).each do |content|
             li = link_to content.full_title, language_course_unit_path(Language.english, Course.first, Course.first.units.first)
       .span4
         h4.block-title
