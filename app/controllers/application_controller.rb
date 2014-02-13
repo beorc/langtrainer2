@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :authenticate
   before_filter :fetch_latest_contents
+  before_filter :build_meta_tags
+
+  def default_url_options(options = {})
+    options.merge!({ locale: I18n.locale })
+  end
 
   def fetch_about_page
     @about_page = Page.find_by(slug: 'about')
@@ -86,5 +91,14 @@ class ApplicationController < ActionController::Base
 
   def fetch_latest_contents
     @latest_contents = Unit.latest_contents
+  end
+
+  def build_meta_tags
+    current_controller = params[:controller]
+    logger.info "==Controller== #{current_controller}"
+    tags = t("meta_tags.#{current_controller}", default: { title: t(:app_name) } ).clone
+    tags.blank? && return
+
+    set_meta_tags tags
   end
 end

@@ -220,3 +220,24 @@ ru:
         right_answers: Правильных ответов
         wrong_answers: Ошибочных ответов
 
+  shared_meta_tags: &shared_meta_tags
+    open_graph:
+      title: Тренажер иностранных языков
+    site: Langtrainer
+    description: Тренажер иностранных языков
+    keywords: 'иностранные языки, обучение иностранным языкам, изучение иностранных языков, английский, испанский, упражнения, уроки английского, самостоятельно, полиглот'
+
+  meta_tags:
+    main_page:
+      <<: *shared_meta_tags
+      title: Тренажер иностранных языков
+
+    users/user_profile:
+      title: Личный кабинет
+
+    user_registrations:
+      title: Профиль пользователя
+
+    units:
+      title: Упражнения
+
