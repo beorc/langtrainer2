@@ -4,7 +4,7 @@ header
       .span6.smallspacetop
         ul.inline.menu
           li = link_to t(:home), root_path
-          li = active_link_to LatestContent.model_name.human(count: 2).capitalize
+          li = link_to t(:history), latest_contents_path
       .span6.smallspacetop
         .pull-right
           ul.inline.user-menu

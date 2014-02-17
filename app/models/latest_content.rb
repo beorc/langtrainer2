@@ -5,7 +5,7 @@ class LatestContent < ActiveRecord::Base
 
   belongs_to :owner, polymorphic: true
 
-  scope :by_date, -> { order('released_at DESC') }
+  scope :order_by_date, -> { order('released_at DESC') }
 
   before_create :set_released_at
 

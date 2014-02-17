@@ -21,7 +21,7 @@ class Unit < ActiveRecord::Base
   scope :published_only, -> { where(published: true) }
 
   def self.latest_contents
-    LatestContent.where(owner_type: 'Unit', owner_id: published_only.pluck(:id))
+    LatestContent.where(owner_type: 'Unit', owner_id: published_only.pluck(:id)).order_by_date
   end
 end
 

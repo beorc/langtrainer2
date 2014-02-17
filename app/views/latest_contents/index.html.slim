@@ -1,0 +1,6 @@
+.page-header
+  h1 = t('.title')
+
+= paginate @latest_contents
+ul = render @latest_contents
+= paginate @latest_contents

@@ -38,5 +38,7 @@ Langtrainer2::Application.routes.draw do
     get '/:language_id/:id', to: redirect('/%{language_id}/polyglot/%{id}')
   end
 
+  resources :latest_contents, only: :index
+
   draw_fallback_routes
 end
