@@ -111,6 +111,10 @@ ru:
     latest_content:
       select_learning_language: Выберите язык для изучения
 
+  latest_contents:
+    index:
+      title: История обновлений
+
   units:
     show:
       no_sentences: Занятие не содержит шагов

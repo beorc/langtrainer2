@@ -1,11 +1,12 @@
 class LatestContentsController < ApplicationController
+  has_scope :page, default: 1
 
   def index
-    @latest_contents = LatestContent.
+    @latest_contents = apply_scopes(LatestContent.
       where(owner_type: 'Unit',
             owner_id: Unit.published_only.pluck(:id)).
-      group(:owner_id).
-      order_by_date
+            uniq.
+            order_by_date)
   end
 end
 
