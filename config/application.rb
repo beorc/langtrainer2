@@ -40,6 +40,6 @@ module Langtrainer2
     config.boxes_number = 5
     config.boxes_probabilities = [60, 25, 10, 8, 2]
 
-    config.autoload_paths += %W(#{config.root}/lib/services)
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

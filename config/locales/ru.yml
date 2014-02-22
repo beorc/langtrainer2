@@ -3,8 +3,14 @@ ru:
 
   about: О нас
   home: Главная
-  history: История изменения курсов
+  history: История обновлений
   read_more: 'Читать дальше...'
+
+  devise:
+    registrations:
+      edit:
+        hints:
+          username: Используется в качестве идентификатора вашей публичной страницы
 
   admin:
     courses:
@@ -169,6 +175,8 @@ ru:
         other: статистика
 
     attributes:
+      user:
+        username: Псевдоним
       page:
         short: Вступление
       course:

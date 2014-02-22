@@ -4,6 +4,7 @@
     = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
 
       = f.input :email, autofocus: true
+      = f.input :username, hint: t('.hints.username')
       h3 = t('.change_password')
       = f.input :password, as: :password, label: t('.password'), hint: t('.hints.password')
       = f.input :password_confirmation, as: :password, label: t('.password_confirmation')
@@ -16,12 +17,4 @@
 
       hr
       = f.submit t('.update'), class: 'btn btn-primary submit'
-
-  .span5
-    h2 = t('.cancel_my_account')
-
-    p
-      = t('.unhappy')
-      '  
-      = link_to t('.cancel_my_account'), registration_path(resource_name), :data => { :confirm => t('.confirm') }, :method => :delete
 

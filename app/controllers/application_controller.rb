@@ -39,6 +39,13 @@ class ApplicationController < ActionController::Base
     UnitAdvance.where(options)
   end
 
+  protected
+
+  def devise_parameter_sanitizer
+    return super if resource_class != User
+    User::ParameterSanitizer.new(User, :user, params)
+  end
+
   private
 
   def build_native_language

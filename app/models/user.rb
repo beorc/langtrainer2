@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   before_save *before_save_opts
 
   validates :password, confirmation: true
+  validates :username, uniqueness: true if :username?
 
   def has_assigned_language?
     language_id.present?
@@ -26,6 +27,11 @@ class User < ActiveRecord::Base
 
   def has_password?
     !encrypted_password.blank?
+  end
+
+  def title
+    return username if username.present?
+    email.split('@').first
   end
 end
 
