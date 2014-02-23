@@ -3,12 +3,12 @@
 .training-navigation
   .form-horizontal.pull-left
     .control-group
-      label.control-label for='course'
+      label.control-label
         = Course.model_name.human.capitalize
       .controls = render_courses_select
   .form-horizontal.pull-left
     .control-group
-      label.control-label for='course'
+      label.control-label
         = Unit.model_name.human.capitalize
       .controls = render_units_select
 

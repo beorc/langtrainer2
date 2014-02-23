@@ -20,7 +20,9 @@ Langtrainer2::Application.routes.draw do
   end
 
   namespace :user do
-    resource :charts, only: :show
+    namespace :charts do
+      get 'boxes' => 'boxes#show'
+    end
   end
 
   put 'verify_answer' => 'unit_advances#verify_answer'

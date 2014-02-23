@@ -14,6 +14,10 @@ class UnitAdvance < ActiveRecord::Base
   before_validation :ensure_steps
   after_create :create_boxes
 
+  def self.languages
+    pluck(:language_id).uniq.map { |id| Language.find(id) }
+  end
+
   def self.generate_session_token
     loop do
       token = SecureRandom.base64(15).tr('+/=lIO0', 'pqrsxyz')

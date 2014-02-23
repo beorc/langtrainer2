@@ -11,7 +11,6 @@
           - if Page.find_by(slug: 'about').present?
             == Page.find_by(slug: 'about').short
             = link_to t(:read_more), page_path(@about_page), class: 'read-more'
-        /.footer-logo = image_tag 'logo-light.png'
       .span4
         h4.block-title
           span = LatestContent.model_name.human(count: @latest_contents.count).capitalize
@@ -31,6 +30,6 @@
       .span8.smallspacetop
         .pull-right
           ul.footermenu
-            li = link_to t(:home)
-            li = link_to LatestContent.model_name.human(count: 2).capitalize
+            li = link_to t(:home), root_path
+            li = link_to t(:history), latest_contents_path
 

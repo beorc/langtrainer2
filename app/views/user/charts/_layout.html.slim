@@ -1,0 +1,25 @@
+- load_controller_script('user.charts')
+
+ul.nav.nav-tabs
+  = active_link_to t('.boxes'), user_charts_boxes_path, wrap_tag: :li, data: { target: :boxes, toggle: :tab }
+
+.tab-content
+  .chart-scopes
+    .form-horizontal.pull-left.language
+      .control-group
+        label.control-label
+          = Language.model_name.human.capitalize
+        .controls = render_languages_select
+    .form-horizontal.pull-left.course
+      .control-group
+        label.control-label
+          = Course.model_name.human.capitalize
+        .controls = render_courses_select
+    .form-horizontal.pull-left.unit
+      .control-group
+        label.control-label
+          = Unit.model_name.human.capitalize
+        .controls = render_units_select
+  .tab-pane#boxes class=active_link_to_class(user_charts_boxes_path)
+    = content_for :charts
+

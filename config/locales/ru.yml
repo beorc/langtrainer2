@@ -5,6 +5,7 @@ ru:
   home: Главная
   history: История обновлений
   read_more: 'Читать дальше...'
+  all: Все
 
   devise:
     registrations:
@@ -106,6 +107,10 @@ ru:
       signature: "— С уважением, команда %{app_name}"
     footer:
       feedback: Обратная связь
+    user_profile:
+      tooltips:
+        profile: Профиль пользователя
+        charts: Прогресс и статистика
 
   main_page:
     show:
@@ -135,6 +140,19 @@ ru:
         error: Возникла ошибка! Попробуйте повторить запрос немного позже.
     statistics:
       sign_in_to_see_statistics: Войдите на сайт или зарегистрируйтесь, чтобы вести статистику вашего обучения.
+
+  user:
+    charts:
+      layout:
+        boxes: Группы карточек
+
+  activemodel:
+    models:
+      language:
+        one: язык
+        few: языки
+        many: языки
+        other: языки
 
   activerecord:
     models:

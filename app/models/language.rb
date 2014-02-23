@@ -1,5 +1,6 @@
 class Language
   extend ActiveModel::Naming
+  extend ActiveModel::Translation
 
   attr_reader :id, :slug, :title
 

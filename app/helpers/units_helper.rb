@@ -1,36 +1,4 @@
 module UnitsHelper
-  def render_courses_select
-    options = ''
-    Course.published_only.each do |course|
-      path = language_course_unit_path(@language, course, @course.units.published_only.first)
-      parameters = { value: course.id, data: { path: path } }
-
-      if @course.present? and course.id == @course.id
-        parameters.merge!({ selected: 'selected' })
-      end
-
-      options << content_tag(:option, course.title, parameters)
-    end
-
-    select_tag 'course', options.html_safe
-  end
-
-  def render_units_select
-    options = ''
-    @course.units.published_only.each do |unit|
-      path = language_course_unit_path(@language, @course, unit)
-      parameters = { value: unit.id, data: { path: path } }
-
-      if @unit.present? and unit.id == @unit.id
-        parameters.merge!({ selected: 'selected' })
-      end
-
-      options << content_tag(:option, unit.title, parameters)
-    end
-
-    select_tag 'unit', options.html_safe
-  end
-
   def unit_path(unit)
     File.join('units/hints', unit.course.slug.to_s, unit.slug.to_s)
   end
