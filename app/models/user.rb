@@ -3,13 +3,12 @@ class User < ActiveRecord::Base
   has_many :unit_advances, dependent: :destroy
 
   def self.devise_opts
-    [:database_authenticatable, :registerable, :trackable, :recoverable, :rememberable, :confirmable]
+    [:database_authenticatable, :registerable, :trackable, :recoverable, :rememberable, :confirmable, :validatable]
   end
 
   devise *devise_opts
   before_save *before_save_opts
 
-  validates :password, confirmation: true
   validates :username, uniqueness: true if :username?
 
   def has_assigned_language?
@@ -23,10 +22,6 @@ class User < ActiveRecord::Base
 
   def locale
     language.russian? ? :ru : :en
-  end
-
-  def has_password?
-    !encrypted_password.blank?
   end
 
   def title
