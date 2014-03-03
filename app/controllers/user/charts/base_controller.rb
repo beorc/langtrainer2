@@ -3,10 +3,11 @@ class User::Charts::BaseController < ApplicationController
 
   helper_method :render_courses_select,
                 :render_units_select,
-                :render_languages_select
+                :render_languages_select,
+                :render_periods_select
 
   def default_url_options(options = {})
-    [:course, :unit, :language].each do |option|
+    [:course, :unit, :language, :period].each do |option|
       key = "#{option}_id".to_sym
       options.merge!({ option => params[key] }) if params[key].present?
     end
@@ -16,7 +17,8 @@ class User::Charts::BaseController < ApplicationController
   def show
     @course = Course.find_by(id: params[:course_id])
     @unit = @course.units.find_by(id: params[:unit_id]) if @course.present?
-    @language = Language.find(params[:language_id]) || current_user.unit_advances.languages.first
+    @language = Language.find(params[:language]) || current_user.unit_advances.languages.first
+    @period = Period.find(params[:period]) || Period.default
   end
 
   private
@@ -34,7 +36,7 @@ class User::Charts::BaseController < ApplicationController
       options << view_context.content_tag(:option, course.title, parameters)
     end
 
-    view_context.select_tag 'course', options.html_safe
+    view_context.select_tag 'course', options.html_safe, class: 'input-medium'.freeze
   end
 
   def render_units_select
@@ -70,6 +72,22 @@ class User::Charts::BaseController < ApplicationController
     end
 
     view_context.select_tag 'language', options.html_safe, class: 'input-small'.freeze
+  end
+
+  def render_periods_select
+    options = view_context.content_tag(:option, t(:all), { value: nil, data: { path: url_for } })
+    Period.all.each do |period|
+      path = url_for(period: period)
+      parameters = { value: period.slug, data: { path: path } }
+
+      if @period.present? and period.id == @period.id
+        parameters.merge!({ selected: 'selected' })
+      end
+
+      options << view_context.content_tag(:option, period.title, parameters)
+    end
+
+    view_context.select_tag 'period', options.html_safe, class: 'input-small'.freeze
   end
 end
 

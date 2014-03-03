@@ -20,6 +20,11 @@ ul.nav.nav-tabs
         label.control-label
           = Unit.model_name.human.capitalize
         .controls = render_units_select
+    .form-horizontal.pull-left.period
+      .control-group
+        label.control-label
+          = t('.period')
+        .controls = render_periods_select
   .tab-pane#boxes class=active_link_to_class(user_charts_boxes_path)
     = content_for :charts
 

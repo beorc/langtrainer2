@@ -18,12 +18,16 @@
 
       &.unit {
         .control-label {
-          width: 80px;
+          width: 70px;
         }
         .controls {
           margin-left: 100px;
         }
       }
+    }
+    .tab-pane {
+      margin-top: 50px;
+      padding: 10px;
     }
   }
 }

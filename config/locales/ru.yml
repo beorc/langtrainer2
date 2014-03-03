@@ -13,6 +13,13 @@ ru:
         hints:
           username: Используется в качестве идентификатора вашей публичной страницы
 
+  periods:
+    one_day: 24 часа
+    three_days: 3 дня
+    one_week: Неделя
+    one_month: Месяц
+    one_year: Год
+
   admin:
     courses:
       index:
@@ -145,6 +152,7 @@ ru:
     charts:
       layout:
         boxes: Группы карточек
+        period: Период
 
   activemodel:
     models:
@@ -153,6 +161,11 @@ ru:
         few: языки
         many: языки
         other: языки
+      period:
+        one: период
+        few: периоды
+        many: периоды
+        other: периоды
 
   activerecord:
     models:
