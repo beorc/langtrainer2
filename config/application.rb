@@ -41,5 +41,6 @@ module Langtrainer2
     config.boxes_probabilities = [60, 25, 10, 8, 2]
 
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib/constraints)
   end
 end

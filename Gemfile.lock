@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git@gitlab.httplab.ru:sitemplate/sitemplate_core.git
-  revision: 9835e32effb630370f46dfac32e5f4f94bbe835e
+  revision: 78725304b8a714f021e70cea90e0c5da0ec2ac44
   branch: master
   specs:
     sitemplate_core (0.0.1)

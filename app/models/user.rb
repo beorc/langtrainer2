@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   devise *devise_opts
   before_save *before_save_opts
+  before_save :ensure_username
 
   validates :username, uniqueness: true if :username?
 
@@ -25,8 +26,14 @@ class User < ActiveRecord::Base
   end
 
   def title
-    return username if username.present?
-    email.split('@').first
+    username
+  end
+
+  private
+
+  def ensure_username
+    return if username.present?
+    username = email.split('@').first
   end
 end
 

@@ -25,6 +25,10 @@ Langtrainer2::Application.routes.draw do
     end
   end
 
+  constraints(UserDashboardConstraint) do
+    get '/:username', to: 'user/dashboard#show', as: :user_dashboard
+  end
+
   put 'verify_answer' => 'unit_advances#verify_answer'
   put 'next_step' => 'unit_advances#next_step'
   put 'help_next_word' => 'unit_advances#help_next_word'
