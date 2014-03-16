@@ -1,12 +1,11 @@
 module Charts
   class Base
-    attr_reader :labels, :datasets
+    attr_reader :data
 
-    def initialize(user, range)
-      @labels = []
-      @datasets = {}
+    def initialize(user, period)
       @user = user
-      @range = range
+      @period = period
+      @data = {}
 
       collect
     end
