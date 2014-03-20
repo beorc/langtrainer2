@@ -6,6 +6,11 @@ class User::Charts::BaseController < ApplicationController
                 :render_languages_select,
                 :render_periods_select
 
+  has_scope :with_course, as: :course_id
+  has_scope :with_unit, as: :unit_id
+  has_scope :with_language, as: :language_id
+  has_scope :with_period, as: :period_id
+
   def default_url_options(options = {})
     [:course, :unit, :language, :period].each do |option|
       key = "#{option}_id".to_sym
@@ -19,6 +24,7 @@ class User::Charts::BaseController < ApplicationController
     @unit = @course.units.find_by(id: params[:unit_id]) if @course.present?
     @language = Language.find(params[:language]) || current_user.unit_advances.languages.first
     @period = Period.find(params[:period]) || Period.default
+    @snapshots = apply_scopes(UnitAdvance::Snapshot.with_user(current_user))
   end
 
   private
