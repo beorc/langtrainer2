@@ -79,7 +79,7 @@ class UnitAdvance < ActiveRecord::Base
   end
 
   def create_snapshot!
-    snapshots.where(date: Date.today).destroy!
+    snapshots.where(date: Date.today).destroy_all
     snapshots.create!(date: Date.today,
                       steps_passed: steps_passed,
                       words_helped: words_helped,

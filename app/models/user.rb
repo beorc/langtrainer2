@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include UserConcerns::Base
   has_many :unit_advances, dependent: :destroy
+  has_many :snapshots, class_name: 'UnitAdvance::Snapshot', through: :unit_advances
 
   def self.devise_opts
     [:database_authenticatable, :registerable, :trackable, :recoverable, :rememberable, :confirmable, :validatable]

@@ -2,9 +2,7 @@ module Charts
   class Base
     attr_reader :data
 
-    def initialize(user, period)
-      @user = user
-      @period = period
+    def initialize
       @data = {}
 
       collect
