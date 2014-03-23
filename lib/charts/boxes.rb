@@ -1,18 +1,15 @@
 module Charts
   class Boxes < Base
 
-    def initialize(boxes)
-      @boxes = boxes
-      super()
-    end
-
     def collect
+      boxes = @snapshots.boxes
+
       @data = {}
       @data[:labels] = (1..Rails.configuration.boxes_number).map { |num| num }
       @data[:datasets] = []
 
-      counts = (1..Rails.configuration.boxes_number).map do |num|
-        @boxes.where(number: num).count
+      counts = (0..Rails.configuration.boxes_number-1).map do |num|
+        boxes.for_number(num).first.steps.count
       end
 
       @data[:datasets] << {

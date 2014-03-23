@@ -21,7 +21,11 @@ Langtrainer2::Application.routes.draw do
 
   namespace :user do
     namespace :charts do
-      get 'boxes' => 'boxes#show'
+      ['boxes',
+       'answers',
+       'hints'].each do |key|
+         get key => "#{key}#show"
+       end
     end
   end
 

@@ -1,0 +1,7 @@
+- load_controller_script('user.charts.hints')
+
+- content_for :charts do
+  canvas.chart.steps_helped
+  canvas.chart.words_helped
+
+= render partial: 'user/charts/layout'

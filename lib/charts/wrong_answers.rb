@@ -1,8 +1,8 @@
 module Charts
-  class RightAnswers < Answers
+  class WrongAnswers < Answers
 
     def attribute_to_fetch
-      :right_answers
+      :wrong_answers
     end
   end
 end

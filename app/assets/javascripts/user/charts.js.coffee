@@ -7,4 +7,7 @@ ns.init = () ->
     window.location = path
 
   $('select#course').change goToSelected
+  $('select#language').change goToSelected
+  $('select#unit').change goToSelected
+  $('select#period').change goToSelected
 

@@ -9,24 +9,11 @@ class UnitAdvance::Snapshot < ActiveRecord::Base
   scope :with_course, ->(course) { joins(:unit).where('units.course_id = ?', course.id) }
   scope :with_unit, ->(unit) { joins(:unit).where('units.id = ?', unit.id) }
   scope :with_language, ->(language) { joins(:unit_advances).where('unit_advances.language_id = ?', language.id) }
+  scope :with_period, ->(period) { where('date = ?', period.start_date) }
+  scope :for_date, ->(date) { where(date: date) }
 
   def self.table_name_prefix
     'unit_advance_'
-  end
-
-  def self.with_period(period)
-    case period.id
-    when Period::OneDay
-      where('date = ?', Date.today)
-    when Period::ThreeDays
-      where('date >= ?', 3.days.ago)
-    when Period::OneWeek
-      where('date >= ?', 1.week.ago)
-    when Period::OneMonth
-      where('date >= ?', 1.month.ago)
-    when Period::OneYear
-      where('date >= ?', 1.year.ago)
-    end
   end
 
   def self.boxes

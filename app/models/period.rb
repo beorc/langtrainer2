@@ -23,6 +23,16 @@ class Period
     find(OneWeek)
   end
 
+  def start_date
+    dates = []
+    dates << Date.today
+    dates << 3.days.ago
+    dates << 1.week.ago
+    dates << 1.month.ago
+    dates << 1.year.ago
+    dates[id]
+  end
+
   def initialize(hsh = {})
     @id = hsh[:id]
     @slug = hsh[:slug]

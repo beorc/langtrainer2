@@ -2,6 +2,8 @@
 
 ul.nav.nav-tabs
   = active_link_to t('.boxes'), user_charts_boxes_path, wrap_tag: :li, data: { target: :boxes, toggle: :tab }
+  = active_link_to t('.answers'), user_charts_answers_path, wrap_tag: :li, data: { target: :answers, toggle: :tab }
+  = active_link_to t('.hints'), user_charts_hints_path, wrap_tag: :li, data: { target: :hints, toggle: :tab }
 
 .tab-content
   .chart-scopes
@@ -26,5 +28,9 @@ ul.nav.nav-tabs
           = t('.period')
         .controls = render_periods_select
   .tab-pane#boxes class=active_link_to_class(user_charts_boxes_path)
+    = content_for :charts
+  .tab-pane#answers class=active_link_to_class(user_charts_answers_path)
+    = content_for :charts
+  .tab-pane#hints class=active_link_to_class(user_charts_hints_path)
     = content_for :charts
 
