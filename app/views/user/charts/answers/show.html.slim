@@ -1,7 +1,8 @@
-- load_controller_script('user.charts.answers')
+- load_controller_script('user.charts.boxes')
 
 - content_for :charts do
-  canvas.chart.right_answers[width='400' height='300']
+  canvas.chart.boxes[width='400' height='300']
+  /canvas.chart.right_answers[width='400' height='300']
   /canvas.chart.wrong_answers
 
 = render partial: 'user/charts/layout'

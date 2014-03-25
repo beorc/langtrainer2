@@ -3,7 +3,7 @@ class User::Charts::AnswersController < User::Charts::BaseController
     super
 
     chart = ::Charts::Boxes.new @snapshots, @period
-    gon.right_answers = chart.data
+    gon.boxes = chart.data
 
     #chart = ::Charts::RightAnswers.new @snapshots, @period
     #gon.right_answers = chart.data

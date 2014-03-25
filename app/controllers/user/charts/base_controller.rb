@@ -1,6 +1,8 @@
 class User::Charts::BaseController < ApplicationController
   layout 'user_profile'
 
+  before_filter :authenticate_user!
+
   helper_method :render_courses_select,
                 :render_units_select,
                 :render_languages_select,
