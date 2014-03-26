@@ -9,12 +9,8 @@ module Charts
       @data[:rows] = []
       @data[:options] = {}
 
-      @data[:options][:title] = I18n.t('charts.boxes.title')
-      @data[:options][:width] = 400
-      @data[:options][:height] = 300
-
-      @data[:columns] << { type: 'string', name: 'Tapping' }
-      @data[:columns] << { type: 'number', name: 'Slices' }
+      @data[:columns] << { type: 'string', name: I18n.t('charts.boxes.columns.name') }
+      @data[:columns] << { type: 'number', name: I18n.t('charts.boxes.columns.count') }
 
       counts = (0..Rails.configuration.boxes_number-1).map do |num|
         @data[:rows] << [num.to_s, boxes.for_number(num).first.steps.count]

@@ -148,10 +148,29 @@ ru:
     statistics:
       sign_in_to_see_statistics: Войдите на сайт или зарегистрируйтесь, чтобы вести статистику вашего обучения.
 
+  charts:
+    boxes:
+      columns:
+        name: Группа
+        count: Количество шагов
+    answers:
+      columns:
+        date: Дата
+        passed: Пройдено шагов
+        right: Верных ответов
+        wrong: Ошибочных ответов
+    hints:
+      columns:
+        date: Дата
+        passed: Пройдено шагов
+        steps_helped: Просмотрено ответов
+        words_helped: Получено подсказок слов
   user:
     charts:
       layout:
         boxes: Группы карточек
+        answers: Ответы
+        hints: Подсказки
         period: Период
 
   activemodel:

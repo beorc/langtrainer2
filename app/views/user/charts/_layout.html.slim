@@ -28,9 +28,9 @@ ul.nav.nav-tabs
           = t('.period')
         .controls = render_periods_select
   .tab-pane#boxes class=active_link_to_class(user_charts_boxes_path)
-    = content_for :charts
+    = content_for :boxes_charts
   .tab-pane#answers class=active_link_to_class(user_charts_answers_path)
-    = content_for :charts
+    = content_for :answers_charts
   .tab-pane#hints class=active_link_to_class(user_charts_hints_path)
-    = content_for :charts
+    = content_for :hints_charts
 

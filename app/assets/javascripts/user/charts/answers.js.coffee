@@ -1,11 +1,5 @@
 ns = initNamespaces('SITEMPLATE.user.charts.answers')
 
-ns.init = () ->
-  ctx = $('.chart.boxes').get(0).getContext('2d')
-  chart = new Chart(ctx).Bar(gon.boxes)
-
-  #ctx = $('.chart.right_answers').get(0).getContext('2d')
-  #chart = new Chart(ctx).Bar(gon.right_answers)
-
-  #ctx = $('.chart.wrong_answers').get(0).getContext('2d')
-  #chart = new Chart(ctx).Bar(gon.wrong_answers)
+ns.init = ->
+  $.getScript 'https://www.google.com/jsapi', (data, textStatus) ->
+    drawer = new SITEMPLATE.lib.chart.BarChartDrawer($('.chart.answers'))
