@@ -5,7 +5,7 @@ ul.nav.nav-tabs
   = active_link_to t('.answers'), user_charts_answers_path, wrap_tag: :li, data: { target: :answers, toggle: :tab }
   = active_link_to t('.hints'), user_charts_hints_path, wrap_tag: :li, data: { target: :hints, toggle: :tab }
 
-.tab-content
+.tab-content.with-scopes
   .chart-scopes
     .form-horizontal.pull-left.language
       .control-group

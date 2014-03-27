@@ -15,6 +15,8 @@
 //= require redactor-rails
 //= require_tree ./common
 //= require sitemplate_core
+//= require bootstrap-tab
+//= require bootstrap-transition
 //= require jquery.insert_at_caret
 //= require xregexp.js
 //= require unicode-base
