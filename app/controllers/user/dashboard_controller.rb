@@ -9,4 +9,3 @@ class User::DashboardController < ApplicationController
   end
 end
 
-

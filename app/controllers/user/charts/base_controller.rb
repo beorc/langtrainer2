@@ -8,22 +8,21 @@ class User::Charts::BaseController < ApplicationController
                 :render_languages_select,
                 :render_periods_select
 
-  has_scope :with_course, as: :course_id
-  has_scope :with_unit, as: :unit_id
-  has_scope :with_language, as: :language_id
-  has_scope :with_period, as: :period_id
+  has_scope :with_course, as: :course
+  has_scope :with_unit, as: :unit
+  has_scope :with_language, as: :language
+  has_scope :with_period, as: :period
 
   def default_url_options(options = {})
     [:course, :unit, :language, :period].each do |option|
-      key = "#{option}_id".to_sym
-      options.merge!({ option => params[key] }) if params[key].present?
+      options.merge!({ option => params[option] }) if params[option].present?
     end
     options
   end
 
   def show
-    @course = Course.find_by(id: params[:course_id])
-    @unit = @course.units.find_by(id: params[:unit_id]) if @course.present?
+    @course = Course.find_by(slug: params[:course])
+    @unit = @course.units.find_by(slug: params[:unit]) if @course.present?
     @language = Language.find(params[:language]) || current_user.unit_advances.languages.first
     @period = Period.find(params[:period]) || Period.default
     @snapshots = apply_scopes(UnitAdvance::Snapshot.with_user(current_user))
