@@ -14,6 +14,9 @@ class UnitAdvance < ActiveRecord::Base
   before_validation :ensure_steps
   after_create :create_boxes
 
+  scope :for_course, ->(course) { joins(:unit).where('units.course_id = ?', course) }
+  scope :revised, -> { where(revised: true) }
+
   def self.languages
     pluck(:language_id).uniq.map { |id| Language.find(id) }
   end
@@ -86,6 +89,19 @@ class UnitAdvance < ActiveRecord::Base
                       steps_helped: steps_helped,
                       right_answers: right_answers,
                       wrong_answers: wrong_answers)
+  end
+
+  def self.courses
+    units = Unit.arel_table
+    courses = Course.arel_table
+    unit_advances = UnitAdvance.arel_table
+    query = units.project(units[:course_id])
+      .join(unit_advances, Arel::Nodes::InnerJoin)
+      .on(unit_advances[:unit_id].eq(units[:id]))
+      .group(units[:course_id])
+
+    course_ids = Unit.find_by_sql(query.to_sql).map(&:course_id)
+    Course.where(courses[:id].in course_ids)
   end
 
   private

@@ -1,7 +1,10 @@
 Langtrainer2::Application.routes.draw do
-  resources :unit_statistics
-
   root to: 'main_page#show'
+
+  constraints(UserDashboardConstraint) do
+    get '/:username', to: 'user/dashboard#show', as: :user_dashboard
+  end
+
   draw_sitemplate_core_routes
 
   devise_opts = {
@@ -27,10 +30,6 @@ Langtrainer2::Application.routes.draw do
          get key => "#{key}#show"
        end
     end
-  end
-
-  constraints(UserDashboardConstraint) do
-    get '/:username', to: 'user/dashboard#show', as: :user_dashboard
   end
 
   put 'verify_answer' => 'unit_advances#verify_answer'

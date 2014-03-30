@@ -1,0 +1,9 @@
+.course[data-id=course.id]
+  = course.title
+  - unit_advances = @user.unit_advances.for_course(course.id)
+  = unit_advances.revised.count
+  = unit_advances.sum(:revised_steps_number)
+  = unit_advances.sum(:right_answers)
+  = unit_advances.sum(:wrong_answers)
+
+  .chart.answers

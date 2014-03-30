@@ -10,6 +10,8 @@ class Course < ActiveRecord::Base
 
   has_many :units
   has_many :step_mappings, through: :units
+  has_many :unit_advances, through: :units
+  has_many :snapshots, through: :unit_advances
   has_many :steps, through: :step_mappings
   has_many :boxes
 

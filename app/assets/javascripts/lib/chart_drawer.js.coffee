@@ -1,7 +1,7 @@
 ns = initNamespaces('SITEMPLATE.lib.chart')
 
 class ChartDrawer
-  constructor: (@selector) ->
+  constructor: (@selector, @data) ->
     self = this
 
     options =
@@ -15,13 +15,13 @@ class ChartDrawer
     # Create the data table.
     data = new google.visualization.DataTable()
 
-    $.each gon.boxes.columns, (index, column) ->
+    $.each @data.columns, (index, column) ->
       data.addColumn(column.type, column.name)
 
-    data.addRows(gon.boxes.rows)
+    data.addRows(@data.rows)
 
     # Set chart options
-    options = gon.boxes.options
+    options = @data.options
 
     # Instantiate and draw our chart, passing in some options.
     @getChart().draw(data, options)

@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   validates :username, uniqueness: true if :username?
 
+  delegate :courses, to: :unit_advances
+
   def has_assigned_language?
     language_id.present?
   end
