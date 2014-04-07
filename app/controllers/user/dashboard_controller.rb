@@ -8,7 +8,7 @@ class User::DashboardController < ApplicationController
     @courses.each do |course|
       snapshots = course.snapshots.with_user(@user)
 
-      chart = ::Charts::Answers.new snapshots, Period.find(Period::OneYear)
+      chart = ::Charts::Answers.new snapshots, Period.find(Period::OneYear), { month: 1 }
       gon.answers[course.id] = chart.data
     end
 

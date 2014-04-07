@@ -12,7 +12,7 @@ module Charts
       @data[:columns] << { type: 'number', name: I18n.t('charts.answers.columns.right') }
       @data[:columns] << { type: 'number', name: I18n.t('charts.answers.columns.wrong') }
 
-      dates = ::DatesRange.new(@period.start_date, Date.today).every(days: 1)
+      dates = ::DatesRange.new(@period.start_date, Date.today).every(@every)
 
       dates.map do |d|
         snapshot = @snapshots.for_date(d).first

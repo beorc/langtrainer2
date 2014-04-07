@@ -5,5 +5,5 @@ ns.init = ->
     $('.course').each ->
       course = $(@)
       id = course.data('id')
-      drawer = new SITEMPLATE.lib.chart.BarChartDrawer(course, gon.answers[id])
+      drawer = new SITEMPLATE.lib.chart.BarChartDrawer(course.find('.chart'), gon.answers[id])
 

@@ -11,3 +11,5 @@ ns.init = () ->
   $('select#unit').change goToSelected
   $('select#period').change goToSelected
 
+  $('.nav.charts a[data-toggle=tab]').click ->
+    window.location = $(@).attr('href')
